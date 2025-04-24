@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect all requests to a non-existent URL to trigger 404
+    RewriteRule ^.*$ /nonexistent-page [L]
+</IfModule>
+
+<IfModule mod_alias.c>
+    # Define a custom 404 error page
+    ErrorDocument 404 /notfound.html
+</IfModule>

@@ -1,0 +1,492 @@
+@media only screen and (min-width: 950px) {
+  .menu.master .mkNav .logo {
+    padding: 10px;
+    height: 100%;
+  }
+  .menu.master .mkNav .logo svg {
+    height: 100%;
+  }
+  .menu.master {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 53px;
+    width: 100%;
+    background-color: var(--menuBG);
+    z-index: 10;
+  }
+  .mkNav * {
+    color: var(--white);
+    font-size: 0.875rem;
+    -webkit-user-select: none; /* Safari */ /* IE 10 and IE 11 */
+    -moz-user-select: none;
+         user-select: none; /* Standard syntax */
+  }
+  .mkNav {
+    --minWidthMenu: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: min(1024px, 90%);
+    margin-inline: auto;
+    height: 100%;
+  }
+  .mkNav .goTo {
+    display: none;
+  }
+  .mkNav ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    z-index: 1;
+  }
+  .mkNav .menuOption {
+    overflow: hidden;
+  }
+  .mkNav .menuOption:hover {
+    overflow: unset;
+  }
+  .mkNav > ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+    height: 100% !important;
+    overflow-y: unset !important;
+  }
+  .mkNav ul > li {
+    position: relative;
+    height: 100%;
+  }
+  .mkNav ul li > a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-transform: uppercase;
+  }
+  .mkNav a {
+    text-decoration: none !important;
+  }
+  .mkNav button {
+    display: none;
+    pointer-events: none;
+  }
+  .mkNav .flag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+  }
+  .mkNav .flag a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mkNav .flag img {
+    padding: 10px;
+    max-height: 100%;
+    max-width: 50px;
+    width: 100%;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .mkNav .second .menuOption:has(.menuOption:hover) {
+    background-color: unset !important;
+  }
+  .mkNav .second.left > .menuOption:hover,
+  .mkNav .third.left > .menuOption:hover {
+    background-color: var(--black);
+  }
+  .mkNav .second .menuBtn {
+    position: absolute;
+    display: block;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    border: 0px;
+    background: rgba(0, 0, 0, 0);
+    transform: rotate(-90deg);
+  }
+  .mkNav ul li a {
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    cursor: pointer;
+  }
+  .mkNav .first > li::before,
+  .mkNav .second::before,
+  .mkNav .third::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    top: 0px;
+    left: 0px;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+  }
+  .mkNav .second::before,
+  .mkNav .third::before {
+    background-color: var(--mkRed);
+  }
+  .mkNav .first > li:has(li.active)::before {
+    background-color: var(--mkRed);
+  }
+  .mkNav .first li:hover > .second,
+  .mkNav .second li:hover > .third {
+    pointer-events: all;
+    opacity: 1;
+  }
+  .mkNav .second,
+  .mkNav .third {
+    position: absolute;
+    min-width: var(--minWidthMenu);
+    background-color: var(--menuBG);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .mkNav .second {
+    top: 100%;
+    left: 0px;
+  }
+  .mkNav .third {
+    top: 0%;
+    left: 100%;
+  }
+  .mkNav .second li a {
+    padding: 7px 20px;
+  }
+  .mkNav .second.left,
+  .mkNav .third.left {
+    left: -100%;
+  }
+}
+@media only screen and (max-width: 949px) {
+  .menu.master {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: var(--menuBG);
+    z-index: 10;
+  }
+  .mkNav {
+    padding: 20px 30px;
+    --slideHeight: 33px;
+  }
+  .mkNav * {
+    color: var(--white);
+    font-size: 0.875rem;
+  }
+  .mkNav .logo svg {
+    display: block;
+    margin-inline: auto;
+    max-height: 40px;
+  }
+  .mkNav .hT {
+    display: flex;
+    background-color: var(--menuBG);
+    margin-top: 20px;
+    justify-content: flex-end;
+  }
+  .mkNav .hT button {
+    padding: 10px;
+  }
+  .mkNav .flag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+  .mkNav .flag a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mkNav .flag img {
+    padding: 10px;
+    max-height: 100%;
+    max-width: 50px;
+    width: 100%;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .mkNav .goTo {
+    display: grid;
+    flex-grow: 1;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .mkNav .hT button .hamburger-box,
+  .mkNav .hT button .hamburger-inner,
+  .mkNav .hT button .hamburger-inner::before,
+  .mkNav .hT button .hamburger-inner::after {
+    width: 30px;
+  }
+  .mkNav ul li {
+    position: relative;
+  }
+  .mkNav ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+  }
+  .mkNav ul.first {
+    background-color: var(--menuBG);
+    height: 0px;
+    overflow: hidden;
+    max-height: 65vh;
+  }
+  .mkNav .first::-webkit-scrollbar {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    --_size: 2px;
+    width: var(--_size);
+    height: var(--_size);
+  }
+  .mkNav .first::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    --_size: 2px;
+    width: var(--_size);
+    height: var(--_size);
+  }
+  .mkNav .first::-webkit-scrollbar-thumb {
+    background: var(--mkRed);
+    border-radius: 10px;
+  }
+  .mkNav .first::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0);
+  }
+  .mkNav ul li a {
+    position: relative;
+    display: flex;
+    padding: 0px 12px;
+    text-decoration: none;
+    min-height: var(--slideHeight);
+    align-items: flex-end;
+    padding-bottom: 1px;
+  }
+  .mkNav ul.first > li a {
+    text-transform: uppercase;
+  }
+  .mkNav .menuBtn {
+    --_rotate: -90deg;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: var(--slideHeight);
+    aspect-ratio: 1/1;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0px;
+    cursor: pointer;
+    font-size: 1.6rem;
+  }
+  .mkNav .menuBtn::before {
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(var(--_rotate));
+    transform-origin: center center;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    left: 50%;
+    top: 50%;
+  }
+  .mkNav .menuOption ul {
+    display: block;
+    padding-left: 10px;
+    height: 0px;
+    overflow: hidden;
+  }
+  .second[data-dashes="1"] li > a::before {
+    content: "-";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="2"] li > a::before {
+    content: "--";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="3"] li > a::before {
+    content: "---";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="4"] li > a::before {
+    content: "----";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="5"] li > a::before {
+    content: "-----";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="6"] li > a::before {
+    content: "------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="7"] li > a::before {
+    content: "-------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="8"] li > a::before {
+    content: "--------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="9"] li > a::before {
+    content: "---------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="10"] li > a::before {
+    content: "----------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="11"] li > a::before {
+    content: "-----------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .second[data-dashes="12"] li > a::before {
+    content: "------------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="1"] li > a::before {
+    content: "-";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="2"] li > a::before {
+    content: "--";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="3"] li > a::before {
+    content: "---";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="4"] li > a::before {
+    content: "----";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="5"] li > a::before {
+    content: "-----";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="6"] li > a::before {
+    content: "------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="7"] li > a::before {
+    content: "-------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="8"] li > a::before {
+    content: "--------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="9"] li > a::before {
+    content: "---------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="10"] li > a::before {
+    content: "----------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="11"] li > a::before {
+    content: "-----------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+  .third[data-dashes="12"] li > a::before {
+    content: "------------";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 25%;
+  }
+}/*# sourceMappingURL=menu.css.map */
