@@ -80,32 +80,33 @@
             extra: {
                 btnExit: false,
                 css: `
-			@keyframes slideInTop {
-				from {
-					transform: translateY(-300px);
-					opacity: 0;
-				}
-				to {
-					transform: translateY(0);
-					opacity: 1;
-				}
-			}
-			@keyframes slideOutBottom {
-				from {
-					transform: translateY(0);
-					opacity: 1;
-				}
-				to {
-					transform: translateY(600px);
-					opacity: 1;
-				}
-			}
-			.htmlContent {
-				animation: slideInTop 1s ease-out forwards;
-			}
-			.htmlMaster[data-hiding] .htmlContent {
-				animation: slideOutBottom 0.4s ease-in forwards;
-			}
+			  @keyframes fadeInScaleUp {
+                from {
+                    transform: scale(0.5);
+                    opacity: 0;
+                }
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+            @keyframes fadeOutRotate {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(200px) rotate(90deg);
+        opacity: 0;
+    }
+}
+            .htmlContent {
+                animation: fadeInScaleUp 0.6s ease-out forwards;
+            }
+            .htmlMaster[data-hiding] .htmlContent {
+                transform-origin: bottom left; 
+                animation: fadeOutRotate 0.6s ease-in forwards;
+            }
 		`,
             },
             cta: {
