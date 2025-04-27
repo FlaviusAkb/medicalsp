@@ -150,4 +150,19 @@
 	/* 2xl */
 	@media (min-width: 1536px) {
 	}
+
+	.gradient-text {
+		background-image: linear-gradient(
+			to right top,
+			#ec2551,
+			#c52a6e,
+			#943979,
+			#633e71,
+			#3d3a59
+		);
+		background-clip: text;
+		-webkit-background-clip: text; /* for Safari */
+		color: transparent;
+		-webkit-text-fill-color: transparent; /* for Safari */
+	}
 }

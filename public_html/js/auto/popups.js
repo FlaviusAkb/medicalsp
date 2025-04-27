@@ -76,7 +76,7 @@ class popUps {
 		this.htmlUpBar = document.createElement("div");
 		this.htmlContent.appendChild(this.htmlUpBar);
 		this.htmlUpBar.className = `htmlUpBar`;
-		this.htmlUpBar.style.cssText = ` position:relative; min-height:50px; padding:8px 12px; `;
+		this.htmlUpBar.style.cssText = ` position:relative; min-height:50px;`;
 
 		this.htmlUpBar.appendChild(this.fInfo.title); //set title
 		this.htmlUpBar.appendChild(this.closeBtn()); // add close btn
@@ -86,7 +86,7 @@ class popUps {
 		this.htmlMid = document.createElement("div");
 		this.htmlContent.appendChild(this.htmlMid);
 		this.htmlMid.className = `htmlMid`;
-		this.htmlMid.style.cssText = ` position:relative; min-height:50px; padding:8px 12px; `;
+		this.htmlMid.style.cssText = ` position:relative; min-height:50px; `;
 		this.htmlMid.appendChild(this.fInfo.content); //set content
 		// middle content - end
 
