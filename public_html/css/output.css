@@ -1661,6 +1661,13 @@
       }
     }
   }
+  .hover\:bg-\[\#4632da\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #4632da;
+      }
+    }
+  }
   .hover\:bg-gray-100 {
     &:hover {
       @media (hover: hover) {
@@ -1890,6 +1897,11 @@
       width: calc(3/5 * 100%);
     }
   }
+  .md\:w-4\/5 {
+    @media (width >= 48rem) {
+      width: calc(4/5 * 100%);
+    }
+  }
   .md\:w-8\/12 {
     @media (width >= 48rem) {
       width: calc(8/12 * 100%);
@@ -2040,9 +2052,24 @@
       height: 384px;
     }
   }
+  .lg\:w-1\/2 {
+    @media (width >= 64rem) {
+      width: calc(1/2 * 100%);
+    }
+  }
   .lg\:w-2\/4 {
     @media (width >= 64rem) {
       width: calc(2/4 * 100%);
+    }
+  }
+  .lg\:w-2\/5 {
+    @media (width >= 64rem) {
+      width: calc(2/5 * 100%);
+    }
+  }
+  .lg\:w-3\/5 {
+    @media (width >= 64rem) {
+      width: calc(3/5 * 100%);
     }
   }
   .lg\:w-\[60\%\] {

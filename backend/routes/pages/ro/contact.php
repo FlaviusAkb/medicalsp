@@ -121,7 +121,7 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
                                 class="bg-white peer block p-4 rounded-xl w-full placeholder-text-gray-500 focus:outline-none" 
                                 placeholder="Mesaj*"></textarea>
                         </div>
-                            <button type="submit" class="text-white px-1 py-3 my-4 rounded-full bg-msp-blue w-[45%] self-center">Trimite<span class="ml-2 "><i aria-hidden="true" class="fas fa-arrow-right text-white"></i></span></button>
+                            <button type="submit" class="text-white px-1 py-3 my-4 rounded-full bg-msp-blue w-[45%] self-center hover:bg-[#4632da] transition duration-700 ease-in-out">Trimite<span class="ml-2 "><i aria-hidden="true" class="fas fa-arrow-right text-white"></i></span></button>
                     </form>
                 `;
 

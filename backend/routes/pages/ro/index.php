@@ -47,7 +47,7 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
             <div class="flex flex-col gap-4 justify-center text-center items-center w-full md:w-2/5">
                 <h3 class="hidden mb-2 my-4 text-left h3-gray md:flex ">Parteneri cu renume mondial în domeniul simulării medicale</h3>
                 <p class="text-left text-lg">Aceștia dezvoltă echipamente și simulatoare medicale de ultimă generație, pentru a le oferi cadrelor medicale posibilitatea de a dobândi abilități tehnice fundamentale prin practică medicală, înainte de a lucra cu pacienți reali.</p>
-                <?= mspButton(text: "Mai multe detalii", link_class: "px-[0.5em] py-[0.8em] text-base w-1/2 md:w-8/12 mt-4 self-center ", href: $_ENV["CURRENT_PATH"] . '/portofoliu/'); ?>
+                <?= mspButton(text: "Mai multe detalii", link_class: "px-[0.5em] py-[0.8em] text-base w-1/2 mb-4 self-center md:w-3/5 lg:w-3/5 ", href: $_ENV["CURRENT_PATH"] . '/portofoliu/'); ?>
             </div>
             <div class="flex flex-col w-full justify-start items-center md:w-3/5 h-full">
                 <h3 class="mb-6 text-center w-10/12 h3-gray md:hidden">Parteneri cu renume mondial în domeniul simulării medicale</h3>
@@ -62,7 +62,7 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
         <div class="relative -mb-[30px] bg-no-repeat bg-contain z-1 w-full h-[300px] bg-bottom md:w-full md:h-[400px] md:-mb-[60px] lg:-mb-[74px]" style="background-image:url('https://medicalsimulator.ro/wp-content/uploads/2020/04/finalmodificat.png')">
             <div class="flex flex-col items-center justify-start w-full md:w-1/2">
                 <h3 class="mb-6 text-center w-4/5 h3-gray md:text-left">Soluții complete pentru centre de simulare</h3>
-                <?= mspButton(text: "Mai multe detalii", link_class: "px-[0.5em] py-[0.8em] text-base w-1/2 mb-4 self-center md:w-2/5", href: $_ENV["CURRENT_PATH"] . '/despre-noi/#solutiicomplete'); ?>
+                <?= mspButton(text: "Mai multe detalii", link_class: "px-[0.5em] py-[0.8em] text-base w-1/2 mb-4 self-center lg:w-2/5", href: $_ENV["CURRENT_PATH"] . '/despre-noi/#solutiicomplete'); ?>
 
             </div>
         </div>
