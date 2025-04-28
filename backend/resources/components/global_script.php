@@ -1,5 +1,5 @@
 <?php $currentPath = $_ENV["CURRENT_PATH"]; ?>
-
+<script src="<?php echo $_ENV["CURRENT_PATH"]; ?>/js/qof.js"></script>
 <script>
     let currentPath = `<?php echo $_ENV["CURRENT_PATH"]; ?>`;
     let filesAllowed = <?php echo $_ENV["FILES_ALLOWED"]; ?>;

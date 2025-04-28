@@ -1,0 +1,62 @@
+.fwb {
+  font-weight: bold !important;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: darkblue;
+}
+
+.border_b_w {
+  border-bottom: 1px solid #fff;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.title_font {
+  color: white;
+  font-weight: bold;
+}
+
+.wd100 {
+  width: 100%;
+}
+
+.standard_link {
+  text-decoration: none;
+}
+
+.cw {
+  color: white;
+}
+
+.eroare {
+  color: #ee2c2c !important;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0px;
+}
+
+.eroare2 {
+  border: 2px solid red !important;
+}
+
+.on {
+  outline: none;
+}
+
+.aLink {
+  color: var(--white);
+  font-weight: 100;
+}
+
+.aLink.ul {
+  text-decoration: underline;
+}
+
+.aLink.it {
+  font-style: italic;
+} /*# sourceMappingURL=qof.css.map */

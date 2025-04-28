@@ -1,0 +1,578 @@
+/*  csM - css master */
+.csM {
+  /* --bgCol: #000d1a; */
+  --bgCol: rgba(0, 0, 0, 0);
+  --gridGap: 10px;
+  --bRad: 4px;
+  --color: white;
+  --inHeight: 30px;
+  --lastElWidth: 30px;
+  --fontSize: 16px;
+  --aniTime: 250ms;
+  --curve: ease-in-out;
+  --borderH: 1px;
+  --cH: 0;
+  --err1: #ff4c4c;
+  --err2: #770000;
+  position: relative;
+}
+
+.csM:hover {
+  /* z-index: 20 !important; */
+}
+
+/* csIH -- css input holder */
+.csIH {
+  position: relative;
+  display: flex;
+  grid-gap: var(--gridGap);
+}
+
+.csIH * {
+  z-index: 1;
+}
+
+.csIH > *:first-child {
+  flex-grow: 1;
+}
+
+/*csM1 -- css merge  1 (  here you unite the right icon with the input )*/
+.csIH.csM1 ~ .csOHolder {
+  width: 100% !important;
+}
+
+.csM1 {
+  background-color: var(--bgCol);
+  border-radius: var(--bRad);
+}
+
+.csIH input[type="date"],
+.csIH input[type="tel"],
+.csIH input[type="password"],
+.csIH input[type="text"] {
+  width: 100%;
+  background-color: var(--bgCol);
+  border: 0px;
+  border-radius: var(--bRad);
+  min-height: var(--inHeight);
+  color: var(--color);
+  font-size: calc(var(--fontSize) * 1);
+  padding-left: 10px;
+}
+
+.csIH input[type="date"] {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-content: end;
+}
+
+.csIH input[type="date"]::-webkit-datetime-edit {
+  position: relative;
+  z-index: 2;
+}
+.csIH input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  background: red;
+  opacity: 0;
+  z-index: 1;
+}
+
+.csIH input[type="text"][disabled] ~ .csArr {
+  position: unset;
+}
+
+.csIH input[type="text"][disabled] ~ .csArr input[type="checkbox"] {
+  left: 50%;
+  width: 100%;
+}
+
+.csIH input[type="text"][disabled] ~ input[type="checkbox"] {
+  left: 50%;
+  width: 100%;
+}
+
+.csIH input[type="text"][disabled] ~ .csArr .icon {
+  z-index: 1;
+}
+
+.csIH input[type="checkbox"] {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: calc(100% - var(--lastElWidth) / 2);
+  width: var(--lastElWidth);
+  height: var(--lastElWidth);
+  top: 50%;
+  margin: 0px;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0);
+  border: 0px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* csArr  css Arrow */
+.csArr {
+  position: relative;
+}
+
+.csIH .icon {
+  position: relative;
+  background-color: var(--bgCol);
+  border: 0px;
+  border-radius: var(--bRad);
+  color: var(--color);
+  width: var(--lastElWidth);
+  height: var(--lastElWidth);
+  cursor: pointer;
+  transform-origin: center center;
+  z-index: 3;
+}
+
+.csIH .icon::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+  transition: var(--aniTime) var(--curve);
+  position: absolute;
+  width: var(--_HIcon, var(--_default));
+  height: var(--_HIcon, var(--_default));
+  left: 50%;
+  top: 50%;
+}
+
+/* csOHolder -- css options holder */
+.csOHolder {
+  position: absolute;
+  top: 100%;
+  height: 0px;
+  overflow-y: auto;
+  width: calc(100% - calc(var(--gridGap) * var(--cH)) - calc(var(--lastElWidth) * var(--cH)));
+  margin-top: 0px;
+  transition: 250ms ease-in-out;
+  transition-delay: 100ms;
+  color: var(--color);
+  margin-top: 0px;
+}
+
+.csOHolder::-webkit-scrollbar {
+  display: none;
+}
+
+/* csDEs -- css dropdown element selection */
+.csDEs {
+  display: grid;
+  position: relative;
+  align-content: center;
+  height: calc(var(--inHeight) * 1.2);
+  padding: 0px 3.5%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bgCol);
+  user-select: none;
+}
+
+.csDEs:before {
+  content: "";
+  position: absolute;
+  width: 95%;
+  height: var(--borderH);
+  background: rgb(255 255 255 / 20%);
+  top: calc(100% - var(--borderH));
+  z-index: 2;
+  transform: translate(-50%, 0%);
+  left: 50%;
+  transition: 250ms ease-in-out;
+}
+
+.csDEs:first-child {
+  border-top-left-radius: var(--bRad);
+  border-top-right-radius: var(--bRad);
+}
+
+.csDEs:last-child {
+  border-bottom-left-radius: var(--bRad);
+  border-bottom-right-radius: var(--bRad);
+}
+
+/*functionality*/
+.csIH:focus-within .icon.r:before {
+  transform-origin: center center !important;
+  transform: translate(-50%, -50%) rotate(180deg) !important;
+}
+
+/* csLabel -- css label  */
+.csIH input[type="date"] ~ .csLabel,
+.csIH input[type="tel"] ~ .csLabel,
+.csIH input[type="password"] ~ .csLabel,
+.csIH input[type="text"] ~ .csLabel {
+  position: absolute;
+  left: 0px;
+  transition: 250ms ease-in-out;
+  transform: translate(0%, -50%);
+  top: calc(50% - var(--borderH) * 0.5);
+  z-index: 1;
+  height: calc(var(--inHeight) * 0.7 - var(--borderH));
+  font-size: 14px;
+  background: var(--bgCol);
+  padding: 5px;
+  border-radius: 4px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  pointer-events: none;
+  color: var(--color);
+  display: grid;
+  align-content: center;
+  transition-delay: 100ms;
+  transition-property: top;
+  /* you want a bit of delay so when you pick an option the animation doesnt spike when it loses focus */
+}
+
+/* .csIH input[type="text"]~.csLabel > div {
+                      font-size: 14px;
+                      background: var(--bgCol);
+                      background: red;
+                      padding: 5px 20px 5px 5px;
+                      border-radius: 4px;
+                      pointer-events: none;
+                      color: var(--color);
+                  } */
+
+.csIH:focus-within .csLabel,
+.csIH input[type="date"]:not(:placeholder-shown) ~ .csLabel,
+.csIH input[type="tel"]:not(:placeholder-shown) ~ .csLabel,
+.csIH input[type="password"]:not(:placeholder-shown) ~ .csLabel,
+.csIH input[type="text"]:not(:placeholder-shown) ~ .csLabel {
+  top: -25% !important;
+  transition-delay: 0ms !important;
+}
+
+.csIH:focus-within ~ .csOHolder {
+  margin-top: 10px;
+}
+
+/* csInf - css info MODULE */
+.csInf:hover ~ .csIText {
+  opacity: 1;
+}
+
+.csInf {
+  cursor: pointer;
+}
+
+/* csIText -- css info text */
+.csIText {
+  display: block;
+  max-width: 300px;
+  max-height: 300px;
+  position: absolute;
+  bottom: calc(100% + var(--lastElWidth) * 0.25);
+  right: 0px;
+  padding: 10px;
+  background-color: var(--bgCol);
+  color: var(--color);
+  font-style: italic;
+  border-radius: var(--bRad);
+  overflow-y: auto;
+  pointer-events: none;
+  opacity: 0;
+  transition: var(--aniTime) var(--curve);
+}
+
+@media only screen and (max-width: 600px) {
+  .csIText {
+    width: 100vw;
+    max-width: 100%;
+  }
+}
+
+/* strip module */
+
+.cssIStrip ~ input[type="date"],
+.cssIStrip ~ input[type="tel"],
+.cssIStrip ~ input[type="password"],
+.cssIStrip ~ input[type="text"] {
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.cssIStrip {
+  position: absolute;
+  top: 100%;
+  width: calc(100% - calc(var(--gridGap) * var(--cH)) - calc(var(--lastElWidth) * var(--cH)) + var(--cH) * 1px);
+  background: rgba(255, 255, 255, 0.2);
+  height: var(--borderH);
+}
+
+.cssIStrip:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 0%;
+  height: var(--borderH);
+  background: rgba(255, 255, 255, 1);
+  transition: var(--aniTime) var(--curve);
+}
+.csIH:focus-within .cssIStrip:after {
+  width: 100%;
+}
+
+.csIH button[type="button"] {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  height: 40px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  background: rgb(0, 0, 0, 0.5);
+  font-size: 18px;
+  border: none;
+  color: #fff;
+  margin-top: 1rem;
+  line-height: 0;
+  overflow: hidden;
+  --strip1: darkred;
+  --strip2: #270000;
+}
+.csIH button::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(-55deg, var(--strip1), var(--strip1) 10px, var(--strip2) 10px, var(--strip2) 20px);
+  opacity: 0;
+  transition: var(--aniTime) var(--curve);
+}
+
+.csIH button[disabled]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(-55deg, var(--strip1), var(--strip1) 10px, var(--strip2) 10px, var(--strip2) 20px);
+  opacity: 0.2;
+}
+
+/* error logic */
+.err {
+  /* --bgCol: #4d0000 !important; */
+  /* --err1: #4d0000; */
+  /* -webkit-box-shadow: 0px 0px 2px 2px var(--err1);
+    -moz-box-shadow: 0px 0px 2px 2px var(--err1);
+    box-shadow: 0px 0px 2px 2px var(--err1); */
+  animation-name: shake;
+  animation-duration: 0.7s;
+  animation-timing-function: ease-out;
+}
+
+.err2 {
+  /* --bgCol: #4d0000 !important; */
+  /* -webkit-box-shadow: 0px 0px 2px 2px var(--err1);
+    -moz-box-shadow: 0px 0px 2px 2px var(--err1);
+    box-shadow: 0px 0px 2px 2px var(--err1); */
+  animation-name: shake2;
+  animation-duration: 0.7s;
+  animation-timing-function: ease-out;
+}
+
+.err .csLabel,
+.err2 .csLabel {
+  color: var(--err1) !important;
+}
+
+.err .cssIStrip,
+.err2 .cssIStrip {
+  background: var(--err1) !important;
+}
+
+.err .cssIStrip::after,
+.err2 .cssIStrip::after {
+  background: var(--err2) !important;
+}
+
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  15% {
+    -webkit-transform: translate3d(-6px, 0, 0);
+    transform: translate3d(-6px, 0, 0);
+  }
+
+  30% {
+    -webkit-transform: translate3d(6px, 0, 0);
+    transform: translate3d(6px, 0, 0);
+  }
+
+  45% {
+    -webkit-transform: translate3d(-7px, 0, 0);
+    transform: translate3d(-7px, 0, 0);
+  }
+
+  60% {
+    -webkit-transform: translate3d(7px, 0, 0);
+    transform: translate3d(7px, 0, 0);
+  }
+
+  85% {
+    -webkit-transform: translate3d(-5x, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@-webkit-keyframes shake2 {
+  0% {
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  15% {
+    -webkit-transform: translate3d(-6px, 0, 0);
+    transform: translate3d(-6px, 0, 0);
+  }
+
+  30% {
+    -webkit-transform: translate3d(6px, 0, 0);
+    transform: translate3d(6px, 0, 0);
+  }
+
+  45% {
+    -webkit-transform: translate3d(-7px, 0, 0);
+    transform: translate3d(-7px, 0, 0);
+  }
+
+  60% {
+    -webkit-transform: translate3d(7px, 0, 0);
+    transform: translate3d(7px, 0, 0);
+  }
+
+  85% {
+    -webkit-transform: translate3d(-5x, 0, 0);
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+/*  css error module underneath */
+/* csErr - css error  */
+.csErr {
+  position: absolute;
+  overflow-y: auto;
+  height: 0px;
+  max-height: 100px;
+  top: 100%;
+  transition: 250ms ease-in-out;
+}
+
+.csErr::-webkit-scrollbar {
+  display: none;
+}
+
+.csErr > div {
+  color: #ff4c4c;
+}
+
+/* TOAST CSS START  */
+
+/*dss- disable scroll*/
+.dss::-webkit-scrollbar {
+  width: 0px;
+}
+
+.errHolder {
+  display: grid;
+  --margin: 20px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  padding: 5px;
+  margin: var(--margin);
+  max-height: calc(100vh - var(--margin) * 2);
+  overflow-y: auto;
+  max-width: 350px;
+  width: 100%;
+  /*border:2px solid red;*/
+  border-radius: 10px;
+  z-index: 5000;
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .errHolder {
+    --margin: 0px;
+    max-width: unset;
+  }
+}
+
+.errToastUpper .icon {
+  position: relative;
+  display: block;
+  width: var(--firstColumn);
+  height: var(--firstColumn);
+}
+
+.errToastUpper .icon::before {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+.fillStrip {
+  background: var(--bgCo3);
+  position: relative;
+}
+
+.fillStrip::before {
+  content: "";
+  background: var(--bgCo2);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  animation-name: fillBg;
+  animation-duration: var(--secondsAnimation);
+  animation-timing-function: ease-out;
+}
+
+@-webkit-keyframes fillBg {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+/* utility for colors  */
+.colorsToasts > div {
+  padding: 10px 15px;
+  text-align: center;
+  color: white;
+}
+/* TOAST CSS END  */
