@@ -89,7 +89,7 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
                     type: "tel"
                 },
                 {
-                    id: "domeniu_activitate",
+                    id: "domeniu",
                     label: "Domeniul de activitate",
                     type: "text"
                 },
@@ -111,13 +111,12 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
             crudBody.className = `inset-0 flex justify-center items-center`;
             crudBody.id = `contactModal`;
             crudBody.innerHTML = `
-                    <form id="contact-form" enctype="multipart/form-data" class="flex flex-col w-full gap-4">
+                    <form id="contact-form" enctype="multipart/form-data" class="flex flex-col w-full gap-4" method="POST" action="/api/form" onsubmit="validateForm(event)">
                         <div class="flex gap-4 flex-col items-center justify-center">
                             <div class="flex flex-col w-10/12">
-                                <input type="hidden" id="contact-article-id" name="id" value="">
                                 ${contentHtml}                     
                         <div class="relative w-full">
-                            <textarea required rows="4" id="contact-mesaj" name="mesaj" 
+                            <textarea required rows="4" id="mesaj" name="mesaj" 
                                 class="bg-white peer block p-4 rounded-xl w-full placeholder-text-gray-500 focus:outline-none" 
                                 placeholder="Mesaj*"></textarea>
                         </div>
@@ -165,16 +164,6 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
                         // Remove hiding flag before showing
                         newPop.htmlMaster.removeAttribute("data-hiding");
                     },
-                    // clsBtn: function() {
-                    //     newPop.htmlMaster.setAttribute("data-hiding", "true");
-                    //     console.log("custom close called");
-
-                    //     newPop.htmlContent.addEventListener("animationend", () => {
-                    //         newPop.remove();
-                    //     }, {
-                    //         once: true
-                    //     });
-                    // }
                 },
             });
             newPop.htmlContent.style.cssText += 'background-image: linear-gradient(180deg, #AFE7FF 0%, #6377D3 100%); width:90%; max-width:469px;';
@@ -199,38 +188,6 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
             newPop.show();
 
         }
-
-
-
-        $(document).on("submit", "#contact-form", function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            formData.append("action", "save");
-
-            $.ajax({
-                url: controllerPath,
-                type: "POST",
-                data: formData,
-                contentType: false, // Prevent jQuery from setting content-type
-                processData: false, // Prevent jQuery from converting to URL encoding
-                success: function(response) {
-                    if (response.includes("success")) {
-                        alert("Article saved successfully!");
-                        loadArticles();
-                    } else {
-                        alert("Error saving article.");
-                    }
-                },
-                error: function() {
-                    alert("Error saving article.");
-                },
-            });
-        });
-
-        $('#addArticleBtn').click(function() {
-            makeCrud({});
-        });
     </script>
 
 </body>

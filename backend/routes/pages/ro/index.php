@@ -25,11 +25,11 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
             <div class="flex flex-col gap-4 justify-center text-center items-center w-11/12 md:w-2/5">
                 <h2 class="mb-2 md:my-4 font-medium">Abonează-te!</h2>
                 <p class="text-lg mb-4">Îți trimitem cele mai noi informații despre simulatoarele medicale!</p>
-                <form method="post" id="formAbonat" action="..." class="flex flex-col gap-6 w-full md:w-9/12">
+                <form id="formAbonat" class="flex flex-col gap-6 w-full md:w-9/12" method="POST" action="/api/form" onsubmit="validateForm(event)">
                     <input class="w-full bg-transparent placeholder:text-msp-gray text-black text-xs rounded-full px-3 py-2 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200" required name="email" placeholder="Email*" type="email" />
                     <input class="w-full bg-transparent placeholder:text-msp-gray text-black text-xs rounded-full px-3 py-2 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200" name="nume" placeholder="Nume (Optional)" type="text" />
                     <input class="w-full bg-transparent placeholder:text-msp-gray text-black text-xs rounded-full px-3 py-2 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200" name="telefon" placeholder="Telefon (Optional)" type="tel" />
-                    <input class="w-full bg-transparent placeholder:text-msp-gray text-black text-xs rounded-full px-3 py-2 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200" name="domeniu_activitate" placeholder="Domeniul de activitate (Optional)" type="text" />
+                    <input class="w-full bg-transparent placeholder:text-msp-gray text-black text-xs rounded-full px-3 py-2 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200" name="domeniu" placeholder="Domeniul de activitate (Optional)" type="text" />
                     <?= mspButton(text: "Trimite", type: 'submit', link_class: "px-[0.5em] py-[0.5em] text-lg w-1/3 mt-4 self-center md:w-3/4 lg:w-2/4"); ?>
                 </form>
 
@@ -72,39 +72,6 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
     </div>
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/global_script.php"; ?>
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/footer.php"; ?>
-
-    <script>
-        $("#formAbonat").on("submit", function(e) {
-            e.preventDefault();
-
-            const formData = $(this).serialize();
-
-            console.log("Form data:", formData);
-
-            // Mocking an AJAX call
-            setTimeout(function() {
-                const mockResponse = {
-                    success: true,
-                    message: "Form received successfully. We'll be in touch!",
-                    data: {
-                        email: $("input[name='email']").val(),
-                        nume: $("input[name='nume']").val(),
-                        telefon: $("input[name='telefon']").val(),
-                        domeniu: $("input[name='domeniu_activitate']").val(),
-                    },
-                };
-
-                // Simulate handling a response
-                if (mockResponse.success) {
-                    alert(mockResponse.message);
-                    console.log("Received data:", mockResponse.data);
-                    $("#formAbonat")[0].reset(); // clear form
-                } else {
-                    alert("There was an error submitting the form.");
-                }
-            }, 1000); // 1s delay to simulate a request
-        });
-    </script>
 
 </body>
 

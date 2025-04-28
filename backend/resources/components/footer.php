@@ -41,7 +41,7 @@
                 type: "tel"
             },
             {
-                id: "domeniu_activitate",
+                id: "domeniu",
                 label: "Domeniul de activitate",
                 type: "text"
             },
@@ -50,7 +50,7 @@
 
         let contentHtml = contactFields.map(field => `
                     <div class="relative">
-                        <input id="contact-${field.id}" type="${field.type}" name="${field.id}" ${field.id==="email" || field.id==="nume" ? "required" : ""}  ${field.type==="tel" ? "pattern='[0-9()#&amp;+*-=.]+'" : ""}
+                        <input id="contact-${field.id}" type="${field.type}" name="${field.id}" ${field.id==="email" ? "required" : ""}  ${field.type==="tel" ? "pattern='[0-9()#&amp;+*-=.]+'" : ""}
                             class="w-full bg-transparent placeholder:text-msp-gray text-black text-xs rounded-sm px-3 py-2 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-20 mb-8"
                             placeholder="${field.id === "email"|| field.id === "nume" ? field.label + '*' : field.label + " (opțional)"}" value=""/>
                        
@@ -63,7 +63,7 @@
         crudBody.className = `inset-0 flex justify-center items-center`;
         crudBody.id = `footerModal`;
         crudBody.innerHTML = `
-                    <form id="contact-form" enctype="multipart/form-data" class="flex flex-col w-full gap-4">
+                    <form id="footerForm" enctype="multipart/form-data" class="flex flex-col w-full gap-4  method="POST" action="/api/form" onsubmit="validateForm(event)"">
                         <div class="flex gap-4 flex-col items-center justify-center">
                             <div class="flex flex-col w-10/12">
                                 <input type="hidden" id="contact-article-id" name="id" value="">
@@ -139,35 +139,65 @@
 
     }
 
-
-
-    $(document).on("submit", "footerForm", function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-        formData.append("action", "save");
-
-        $.ajax({
-            url: controllerPath,
-            type: "POST",
-            data: formData,
-            contentType: false, // Prevent jQuery from setting content-type
-            processData: false, // Prevent jQuery from converting to URL encoding
-            success: function(response) {
-                if (response.includes("success")) {
-                    alert("Article saved successfully!");
-                    loadArticles();
-                } else {
-                    alert("Error saving article.");
-                }
-            },
-            error: function() {
-                alert("Error saving article.");
-            },
-        });
-    });
-
     $('#footerButton').click(function() {
         makeCrud({});
     });
+</script>
+
+<script>
+    function validateForm(event) {
+        const controllerPath = '/<?php echo $_ENV["CURRENT_PATH"]; ?> api/form';
+
+        event.preventDefault();
+
+
+        // const form = document.getElementById("footerForm");
+        const form = event.target;
+
+        if (form.checkValidity()) {
+            console.log("Form is OK!");
+
+
+            // Create a new FormData object from the form element
+            const form_data = new FormData(form);
+
+            fetch("<?php echo $_ENV["CURRENT_PATH"]; ?>/api/form", {
+                    method: "POST",
+                    body: form_data,
+                })
+                .then(response => response.json().then(data => {
+                    // If the response status is not OK, throw an error with the message from the server.
+                    if (!response.ok) {
+                        throw new Error(data.message || response.statusText);
+                    }
+                    return data;
+                })).then(data => {
+                    console.log(data);
+                    // On success, redirect (or perform any other success action)
+                    //window.location.href = "<?php //echo $_ENV["CURRENT_PATH"]; 
+                                                ?>/";
+                    form.reset();
+                    errors.alertBody({
+                        body: data.message,
+                        style: "info",
+                        closeDuration: 10,
+                    });
+
+                }).catch(error => {
+                    console.log("err", error.message);
+                    errors.alertBody({
+                        body: error.message,
+                        style: "error",
+                        closeDuration: 10,
+                    });
+                }).finally(() => {
+                    // Re-enable the button regardless of outcome
+                });
+
+        } else {
+            console.log("Form is NOT OK.");
+            // Optionally, display the validation error messages
+            form.reportValidity();
+        }
+    }
 </script>

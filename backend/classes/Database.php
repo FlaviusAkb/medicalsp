@@ -3,9 +3,7 @@
 class Database
 
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
     public static function dbConnect($database, $dbType = null, $op = [])
     {
         if ($dbType == null)
@@ -123,6 +121,7 @@ class Database
         $values = " VALUES " . substr($values, 0, -2) . " )";  // Removes the last 2 characters
 
         $sql = $sql . $values;
+
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             return false;
@@ -130,9 +129,22 @@ class Database
         if (strlen($types) > 0) {
             $stmt->bind_param($types, ...array_values($params));
         }
-        if ($stmt->execute()) {
-            return $stmt->insert_id;
-        } else {
+        // if ($stmt->execute()) {
+        //     return $stmt->insert_id;
+        // } else {
+        //     return false;
+        // }
+
+        try {
+            if ($stmt->execute()) {
+                return $stmt->insert_id;  // successfully inserted
+            } else {
+                return false;  // general error
+            }
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() == 1062) {  // 1062 is the error code for duplicate entry
+                return "Duplicate entry for email!";
+            }
             return false;
         }
     }
@@ -177,6 +189,52 @@ class Database
             return true;
         } else {
             return false;
+        }
+    }
+
+
+
+
+
+    public static function update2($tabel, $conn, $collumn, $where)
+    {
+        $types = "";
+        $sql = " UPDATE $tabel SET ";
+        if (count($collumn) == 0) {
+            return false;
+        }
+
+        $params = [];
+        foreach ($collumn as $key => $value) {
+            $sql .= " " . $value["key"] . " = ?, ";
+            $types .= "s";
+            array_push($params, $value["value"]);
+        }
+        $sql = substr($sql, 0, -2);  // Removes the last 2 characters
+
+        if (count($where) > 0) {
+            $sql .= " WHERE ";
+
+            foreach ($where as $key => $value) {
+                $sql .= " " . $value["key"] . " = ?, ";
+                $types .= "s";
+                array_push($params, $value["value"]);
+            }
+            $sql = substr($sql, 0, -2);  // Removes the last 2 characters
+        }
+
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            // ekko($stmt);
+            return false;
+        }
+        if (strlen($types) > 0) {
+            $stmt->bind_param($types, ...array_values($params));
+        }
+        if ($stmt->execute()) {
+            return ["status" => true, "affected" => $stmt->affected_rows];
+        } else {
+            return ["status" => false];
         }
     }
 }
