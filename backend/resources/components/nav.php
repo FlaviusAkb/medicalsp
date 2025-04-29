@@ -27,7 +27,7 @@ $currentURL = $_SERVER['REQUEST_URI'];
                 <div class="flex items-center gap-4">
                     <p><i class="fa-solid fa-phone text-msp-primary mr-2"></i><span>+40 213 485 272</span></p>
                     <div class="h-[13px] w-[1px] bg-msp-ui opacity-25">&nbsp;</div>
-                    <p><i class="fa-solid fa-map-pin text-msp-primary mr-2"></i><span>Odobesti 1, Bucuresti</span></p>
+                    <p><i class="fa-solid fa-map-pin text-msp-primary mr-2"></i><span>Odobești 1, București</span></p>
                 </div>
                 <div class="flex gap-4 justify-center items-center md:order-3 md:w-1/3 lg:w-auto lg:order-4">
                     <a href="https://www.facebook.com/Medical-Simulator-Projects-1955016421259752/">
@@ -79,13 +79,13 @@ $currentURL = $_SERVER['REQUEST_URI'];
         <!-- Mobile Menu -->
         <nav id="mobileMenu" class="flex flex-col fixed top-0 right-0 h-full w-[160px] bg-white shadow-md transform translate-x-full transition-transform duration-300 ease-in-out  p-4 lg:hidden">
             <button id="closeMenuBtn" class="self-end p-2 focus:outline-none text-[18px] text-msp-primary font-roboto">
-                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#dd4949">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="5" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
 
             <?php foreach ($menuItems as $name => $link) :
-                $isActive = (strpos($currentURL, $link) !== false) ? "text-msp-primary" : "text-msp-dark";
+                $isActive = (strpos($currentURL, $link) !== false) ? "text-msp-dark" : "text-msp-primary";
             ?>
                 <a href="<?= htmlspecialchars($link); ?>" class="block py-3 px-4 text-[18px] font-extrabold font-roboto <?= $isActive ?>">
                     <?= htmlspecialchars($name); ?>

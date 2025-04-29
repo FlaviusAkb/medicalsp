@@ -23,7 +23,9 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
     <div class="flex flex-col container w-11/12 mt-[50px] mb-0 mx-auto items-top justify-start xlg:max-w-full text-black">
         <div class="flex flex-col-reverse items-center w-full md:flex-row md:gap-4">
             <div class="flex flex-col gap-4 justify-center text-center items-center w-11/12 md:w-2/5">
-                <h2 class="mb-2 md:my-4 font-medium">Abonează-te!</h2>
+                <h2 class="mb-2 md:my-4 font-medium typewriter-text">
+                    Abonează-te!
+                </h2>
                 <p class="text-lg mb-4">Îți trimitem cele mai noi informații despre simulatoarele medicale!</p>
                 <form id="formAbonat" class="flex flex-col gap-6 w-full md:w-9/12" method="POST" action="/api/form" onsubmit="validateForm(event)">
                     <input class="w-full bg-transparent placeholder:text-msp-gray text-black text-xs rounded-full px-3 py-2 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200" required name="email" placeholder="Email*" type="email" />

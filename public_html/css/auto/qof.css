@@ -1,62 +1,62 @@
 .fwb {
-  font-weight: bold !important;
+	font-weight: bold !important;
 }
 
-a {
+/* a {
   text-decoration: none;
   font-weight: bold;
   color: darkblue;
-}
+} */
 
 .border_b_w {
-  border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #fff;
 }
 
 .pointer {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .title_font {
-  color: white;
-  font-weight: bold;
+	color: white;
+	font-weight: bold;
 }
 
 .wd100 {
-  width: 100%;
+	width: 100%;
 }
 
 .standard_link {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .cw {
-  color: white;
+	color: white;
 }
 
 .eroare {
-  color: #ee2c2c !important;
-  font-weight: bold;
-  font-size: 1rem;
-  margin: 0px;
+	color: #ee2c2c !important;
+	font-weight: bold;
+	font-size: 1rem;
+	margin: 0px;
 }
 
 .eroare2 {
-  border: 2px solid red !important;
+	border: 2px solid red !important;
 }
 
 .on {
-  outline: none;
+	outline: none;
 }
 
 .aLink {
-  color: var(--white);
-  font-weight: 100;
+	color: var(--white);
+	font-weight: 100;
 }
 
 .aLink.ul {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .aLink.it {
-  font-style: italic;
+	font-style: italic;
 } /*# sourceMappingURL=qof.css.map */
