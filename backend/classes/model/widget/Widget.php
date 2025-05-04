@@ -49,7 +49,6 @@ class Widget
     public function update($id, $newData)
     {
         if (!is_array($newData) || empty($newData)) return false;
-
         $widgets = $this->getAll();
         foreach ($widgets as &$widget) {
             if ($widget["id"] == $id) {

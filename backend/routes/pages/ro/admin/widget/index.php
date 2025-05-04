@@ -1,7 +1,8 @@
 <?php
 include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
 // TwoFactorAuth::require2FA();
-$currentPath = $_ENV["CURRENT_PATH"];
+// $currentPath = $_ENV["CURRENT_PATH"];
+$currentPath = 'http://192.168.0.171';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION["LANG"]; ?>">
@@ -19,38 +20,23 @@ $currentPath = $_ENV["CURRENT_PATH"];
 
 <body>
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/nav.php"; ?>
-
     <div class="container flex flex-col px-6 mt-[50px] mb-[100px] mx-auto items-center justify-start md:gap-4 lg:px-4 xlg:max-w-full">
-
-
-        <img src="<?php echo $currentPath  . "/upload/hidden/widgets/1746196785-oecd-report.jpg" ?>" class="w-[200px] h-[200px] border-2" alt="">
-
-
-
         <div class="flex w-full justify-end items-center">
             <form method="POST" action="<?php echo $currentPath ?>/api/2fa">
                 <input type="hidden" name="case" value="logout">
                 <button type="submit" class="bg-msp-primary text-white px-4 py-2 rounded mb-4 hover:bg-red-600 transition delay-150 duration-300 ease-in-out hover:-translate-y-1">Logout</button>
             </form>
-
         </div>
         <div id="widget-tabs" class="flex w-full"></div>
         <button id="addWidgetBtn" class="bg-green-500 text-white px-4 py-2 rounded mb-4">Add New Widget</button>
         <div id="widget-list"></div>
-
-
-
     </div>
-
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/global_script.php"; ?>
     <script>
         const controllerPath = currentPath + '/api/widget';
-
         $(document).ready(function() {
-
             function loadWidgets() {
                 $("#widget-list").html("<p>Loading...</p>");
-
                 $.ajax({
                     url: controllerPath,
                     type: 'POST',
@@ -59,10 +45,8 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     },
                     success: function(response) {
                         let widgets;
-
                         try {
                             widgets = JSON.parse(response);
-
                             // If the response is not an array, set widgets to an empty array
                             if (!Array.isArray(widgets)) {
                                 widgets = [];
@@ -71,7 +55,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
                             console.error("Failed to parse response:", e);
                             widgets = [];
                         }
-
                         if (widgets.length === 0) {
                             $("#widget-list").html("<p>No widgets found.</p>");
                         } else {
@@ -80,7 +63,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     }
                 });
             }
-
             loadWidgets();
 
             function makeCrud(jInfo) {
@@ -163,10 +145,12 @@ $currentPath = $_ENV["CURRENT_PATH"];
                                 ${inputsHTML}
                                 ${selectHTML}
                             </div>
-                           <div class="flex flex-col w-full md:w-1/2">
-                              <img class="h-[150px] mb-6" src="${jInfo.image_url ? jInfo.image_url : currentPath + '/upload/siteMedia/placeholder.png'}" 
-     alt="Preview" 
-     onerror="this.src='${currentPath}/upload/siteMedia/placeholder.png'">
+                           <div id="image-preview-wrapper" class="relative mb-6">
+                            <img id="image-preview" class="h-[150px]" src="${jInfo.image_url ? jInfo.image_url : currentPath + '/upload/siteMedia/placeholder.png'}" 
+                                alt="Preview"
+                                onerror="this.src='${currentPath}/upload/siteMedia/placeholder.png'}">
+                            <button type="button" id="remove-image-btn" class="absolute top-0 right-0 bg-red-600 text-white px-2 py-1 text-xs rounded">Remove</button>
+                            </div>
                             <div class="relative">
                                 <textarea required rows="6" id="edit-notes" name="notes" 
                                     class="peer block border p-4 rounded w-full placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black" 
@@ -187,8 +171,17 @@ $currentPath = $_ENV["CURRENT_PATH"];
                 `;
 
                 document.body.appendChild(crudBody);
+                const removeBtn = crudBody.querySelector("#remove-image-btn");
+                const imagePreview = crudBody.querySelector("#image-preview");
 
-
+                removeBtn?.addEventListener("click", () => {
+                    imagePreview.src = currentPath + "/upload/siteMedia/placeholder.png";
+                    const hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = "remove_image";
+                    hiddenInput.value = "1";
+                    crudBody.querySelector("#edit-widget-form").appendChild(hiddenInput);
+                });
 
                 const newPop = new popUps({
                     title: document.createTextNode(jInfo.id ? "Edit Widget" : "Add New Widget"),
@@ -197,7 +190,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
                 newPop.htmlContent.style.cssText += `background:white; border:1px solid rgba(255,255,255,0.2); padding:2rem;`;
                 newPop.htmlClose.style.cssText += `--_color:black;`;
                 newPop.htmlUpBar.classList.add("flex", "w-full", "items-center", "font-bold", "text-2xl", "py-4", "justify-center", "text-black");
-
 
                 const cancelButton = crudBody.querySelector("#cancel-btn");
                 cancelButton.addEventListener("click", () => {
@@ -209,8 +201,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
                 });
                 newPop.show();
             }
-
-
             $(document).on("submit", "#edit-widget-form", function(e) {
                 e.preventDefault();
 
@@ -221,8 +211,8 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     url: controllerPath,
                     type: "POST",
                     data: formData,
-                    contentType: false, // Prevent jQuery from setting content-type
-                    processData: false, // Prevent jQuery from converting to URL encoding
+                    contentType: false,
+                    processData: false,
                     success: function(response) {
                         if (response.includes("success")) {
                             alert("Widget saved successfully!");
@@ -310,10 +300,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     const notes = widget.notes || 'N/A';
                     const publishDate = widget.publish_date || 'N/A';
                     const status = widget.status === "1" ? 'Published' : 'Draft';
-                    const image_url = widget.image_url ? `${currentPath + "/" + widget.image_url}` : `${
-                                    currentPath + "/upload/siteMedia/placeholder.png"}`;
-
-
+                    const image_url = widget.image_url ? `${currentPath + "/" + widget.image_url}` : `${currentPath + "/upload/siteMedia/placeholder.png"}`;
                     html += `
                 <tr>
                     <td class="border p-2">${position}</td>
@@ -353,7 +340,17 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     }
                 });
             }
-
+            const fileInput = crudBody.querySelector("#edit-image_file");
+            fileInput.addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        imagePreview.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/footer.php"; ?>

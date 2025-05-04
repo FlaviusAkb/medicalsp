@@ -1,12 +1,12 @@
 [
     {
-        "id": 1,
-        "title": null,
-        "website_url": null,
+        "id": "1",
+        "title": "",
+        "website_url": "",
         "notes": "x",
-        "publish_date": null,
+        "publish_date": "",
         "position": "0",
         "status": "1",
-        "image_url": "\/upload\/hidden\/widgets\/1746350002-cedefop_resource.jpg"
+        "image_url": "\/upload\/hidden\/widgets\/1746363217-cedefop_resource.jpg"
     }
 ]

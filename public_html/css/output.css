@@ -1589,6 +1589,9 @@
   .bg-msp-ui {
     background-color: var(--color-msp-ui);
   }
+  .bg-red-600 {
+    background-color: var(--color-red-600);
+  }
   .bg-transparent {
     background-color: transparent;
   }
@@ -1665,6 +1668,9 @@
   }
   .px-\[1em\] {
     padding-inline: 1em;
+  }
+  .py-1 {
+    padding-block: calc(var(--spacing) * 1);
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
