@@ -24,12 +24,17 @@ switch ($action) {
 
     case 'save':
 
-        $uploadDir = $_ENV["CURRENT_PATH"] . 'upload/hidden/widgets/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/upload/hidden/widgets/';
         $uploadedFilePath = null;
+        $imageUrl = null;
+        $newFileName = null;
+        $id = $_POST['id'];
+        $existingWidget = $widgetModel->getById($id);
+
 
         // Check if a file was uploaded
-        if (!empty($_FILES['pdf_file']['name'])) {
-            $fileName = basename($_FILES['pdf_file']['name']);
+        if (!empty($_FILES['image_file']['name'])) {
+            $fileName = basename($_FILES['image_file']['name']);
             $formattedFileName = str_replace(' ', '-', $fileName);
             $timestamp = time();
 
@@ -40,17 +45,19 @@ switch ($action) {
             $newFileName = $timestamp . '-' . $formattedFileName;
             $targetFilePath = $uploadDir . $newFileName;
 
-            // Validate file type (only PDF allowed)
+            // Validate file type (only image allowed)
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-            if (strtolower($fileType) !== 'pdf') {
-                echo json_encode(['status' => 'error', 'message' => 'Only PDF files are allowed']);
+            $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+
+            if (!in_array(strtolower($fileType), $allowedTypes)) {
+                echo json_encode(['status' => 'error', 'message' => 'Only image files are allowed']);
                 exit;
             }
 
             // Move the uploaded file to the designated folder
-            if (move_uploaded_file($_FILES['pdf_file']['tmp_name'], $targetFilePath)) {
+            if (move_uploaded_file($_FILES['image_file']['tmp_name'], $targetFilePath)) {
                 $uploadedFilePath = $targetFilePath;
-                $pdfUrl = $year . '/' . $month . '/' . $formattedFileName;
+                $imageUrl = '/upload/hidden/widgets/' . $newFileName;
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Failed to upload file']);
                 exit;
@@ -58,18 +65,14 @@ switch ($action) {
         }
 
         $data = [
-            'publish_date' => $_POST['publish_date'],
-            'title' => $_POST['title'],
-            'authors' => $_POST['authors'],
-            'pages' => $_POST['pages'],
-            'doi' => $_POST['doi'],
-            'keywords' => $_POST['keywords'],
-            'abstract' => $_POST['abstract'],
-            'pdf_url' => $pdfUrl,
-            'file' => $newFileName,
-            'volume' => $_POST['volume'],
-            'position' => $_POST['position'],
-            'status' => $_POST['status'],
+            'id' => $id,
+            'title' => $_POST['title'] ?: $existingWidget['title'],
+            'website_url' => $_POST['website_url'] ?: $existingWidget['website_url'],
+            'notes' => $_POST['notes'] ?: $existingWidget['notes'],
+            'publish_date' => $_POST['publish_date'] ?: $existingWidget['publish_date'],
+            'position' => isset($_POST['position']) ? $_POST['position'] : $existingWidget['position'],
+            'status' => isset($_POST['status']) ? $_POST['status'] : $existingWidget['status'],
+            'image_url' => $imageUrl ?: $existingWidget['image_url'],
         ];
 
         if (isset($_POST['id']) && $_POST['id'] !== 'undefined' && !empty($_POST['id'])) {

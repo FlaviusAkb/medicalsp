@@ -487,16 +487,11 @@ class dialog {
                                 scale: 1;
                             }
                         }
-
-
                         @media only screen and (max-width: 900px) {
                             #DB${styleSheet.id}{
                               height: 90%;
                             }
-                        }
-
-
-                        
+                        }                       
                     `;
 		return style;
 	}
@@ -769,38 +764,38 @@ class popUpErrors {
 		let css = ``;
 		switch (style) {
 			case "neutral":
-				classes = `icon icon-err-info`;
+				classes = `icon icon-info-circle`;
 				css = ``;
 				break;
 			case "info":
-				classes = `icon icon-err-info`;
+				classes = `icon icon-info-circle`;
 				css = ``;
 				break;
 			case "success":
-				classes = `icon icon-err-check`;
+				classes = `icon icon-check-circle`;
 				css = ``;
 				break;
 			case "alert":
-				classes = `icon icon-err-alert`;
+				classes = `icon icon-alert-triangle`;
 				css = ``;
 				break;
 			case "error":
-				classes = `icon icon-err-close`;
+				classes = `icon icon-alert-triangle`;
 				css = ``;
 				break;
 			default:
-				classes = `icon icon-err-info`;
+				classes = `icon icon-info-circle`;
 				css = ``;
 		}
 		icon.className = "  " + classes;
 		icon.style.cssText =
 			`  font-size:1.5rem;
-                                  border-radius:50%;
-                                  aspect-ratio:1/1;
-                                  padding:8px;
-                                  background-color:var(--bgCo4);
-                                  color:var(--bgCo1);
-                              ` + css;
+                                                border-radius:50%;
+                                                aspect-ratio:1/1;
+                                                padding:8px;
+                                                background-color:var(--bgCo4);
+                                                color:var(--bgCo1);
+                                            ` + css;
 		return icon;
 	}
 	xBtn() {

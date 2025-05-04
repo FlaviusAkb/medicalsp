@@ -1,7 +1,6 @@
 <?php
 include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
 // TwoFactorAuth::require2FA();
-
 $currentPath = $_ENV["CURRENT_PATH"];
 ?>
 <!DOCTYPE html>
@@ -22,6 +21,12 @@ $currentPath = $_ENV["CURRENT_PATH"];
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/nav.php"; ?>
 
     <div class="container flex flex-col px-6 mt-[50px] mb-[100px] mx-auto items-center justify-start md:gap-4 lg:px-4 xlg:max-w-full">
+
+
+        <img src="<?php echo $currentPath  . "/upload/hidden/widgets/1746196785-oecd-report.jpg" ?>" class="w-[200px] h-[200px] border-2" alt="">
+
+
+
         <div class="flex w-full justify-end items-center">
             <form method="POST" action="<?php echo $currentPath ?>/api/2fa">
                 <input type="hidden" name="case" value="logout">
@@ -34,11 +39,12 @@ $currentPath = $_ENV["CURRENT_PATH"];
         <div id="widget-list"></div>
 
 
+
     </div>
 
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/global_script.php"; ?>
     <script>
-        const controllerPath = '<?php echo $currentPath ?>/api/widget';
+        const controllerPath = currentPath + '/api/widget';
 
         $(document).ready(function() {
 
@@ -52,10 +58,25 @@ $currentPath = $_ENV["CURRENT_PATH"];
                         action: 'getAll'
                     },
                     success: function(response) {
-                        let widgets = JSON.parse(response);
-                        console.log(widgets);
+                        let widgets;
 
-                        renderWidgets(widgets);
+                        try {
+                            widgets = JSON.parse(response);
+
+                            // If the response is not an array, set widgets to an empty array
+                            if (!Array.isArray(widgets)) {
+                                widgets = [];
+                            }
+                        } catch (e) {
+                            console.error("Failed to parse response:", e);
+                            widgets = [];
+                        }
+
+                        if (widgets.length === 0) {
+                            $("#widget-list").html("<p>No widgets found.</p>");
+                        } else {
+                            renderWidgets(widgets);
+                        }
                     }
                 });
             }
@@ -69,32 +90,13 @@ $currentPath = $_ENV["CURRENT_PATH"];
                         type: "text"
                     },
                     {
-                        id: "authors",
-                        label: "Authors",
+                        id: "website_url",
+                        label: "Website URL",
                         type: "text"
                     },
                     {
-                        id: "doi",
-                        label: "DOI",
-                        type: "text"
-                    },
-                    {
-                        id: "pages",
-                        label: "Pages",
-                        type: "text"
-                    },
-                    {
-                        id: "keywords",
-                        label: "Keywords",
-                        type: "text"
-                    }
-                ];
-
-                const rightFields = [
-
-                    {
-                        id: "pdf_file",
-                        label: "PDF",
+                        id: "image_file",
+                        label: "Image",
                         type: "file"
                     },
                     {
@@ -105,11 +107,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
                 ];
 
                 const selectFields = [{
-                        id: "volume",
-                        label: "Volume",
-                        options: [0, 1, 2, 3]
-                    },
-                    {
                         id: "position",
                         label: "Position",
                         options: [0, 1, 2, 3]
@@ -127,7 +124,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     }
                 ];
 
-                let leftHTML = leftFields.map(field => `
+                let inputsHTML = leftFields.map(field => `
                     <div class="relative">
                         <input id="edit-${field.id}" type="${field.type}" name="${field.id}" 
                             class="peer leading-8 mb-4 block border p-2 px-4 rounded w-full placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black"
@@ -136,18 +133,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
                             duration-200 transform scale-100 origin-[0] 
                             peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
                             peer-focus:-top-2.5 peer-focus:text-black">${field.label}</label>
-                    </div>
-                `).join('');
-
-                let rightHTML = rightFields.map(field => `
-                    <div class="relative">
-                        <input id="edit-${field.id}" type="${field.type}" name="${field.id}" 
-                            class="peer leading-8 mb-4 block border p-2 px-4 rounded w-full placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black"
-                            placeholder="" value="${jInfo[field.id] || ''}"/>
-                        <label for="${field.id}" class="absolute left-0 ml-2 -top-2.5 bg-white px-2 text-gray-600
-                            duration-200 transform scale-100 origin-[0] 
-                            peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
-                            peer-focus:-top-2.5 peer-focus:text-black ${field.type==="file" ? 'text-[0.8rem]' : ''}">${field.label}</label>
                     </div>
                 `).join('');
 
@@ -175,22 +160,25 @@ $currentPath = $_ENV["CURRENT_PATH"];
                         <div class="flex gap-4 flex-col md:flex-row">
                             <div class="flex flex-col w-full md:w-1/2">
                                 <input type="hidden" id="edit-widget-id" name="id" value="${jInfo.id ? jInfo.id : ''}">
-                                ${leftHTML}
-                            </div>
-                           <div class="flex flex-col w-full md:w-1/2">
-                                ${rightHTML}
+                                ${inputsHTML}
                                 ${selectHTML}
                             </div>
+                           <div class="flex flex-col w-full md:w-1/2">
+                              <img class="h-[150px] mb-6" src="${jInfo.image_url ? jInfo.image_url : currentPath + '/upload/siteMedia/placeholder.png'}" 
+     alt="Preview" 
+     onerror="this.src='${currentPath}/upload/siteMedia/placeholder.png'">
+                            <div class="relative">
+                                <textarea required rows="6" id="edit-notes" name="notes" 
+                                    class="peer block border p-4 rounded w-full placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black" 
+                                    placeholder="">${jInfo.notes || ''}</textarea>
+                                <label for="notes" class="absolute left-0 ml-2 -top-2.5 bg-white px-2 text-gray-600
+                                    duration-200 transform scale-100 origin-[0] 
+                                    peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
+                                    peer-focus:-top-2.5 peer-focus:text-black">Notes</label>
                         </div>
-                        <div class="relative">
-                            <textarea required rows="8" id="edit-abstract" name="abstract" 
-                                class="peer block border p-4 rounded w-full placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black" 
-                                placeholder="">${jInfo.abstract || ''}</textarea>
-                            <label for="abstract" class="absolute left-0 ml-2 -top-2.5 bg-white px-2 text-gray-600
-                                duration-200 transform scale-100 origin-[0] 
-                                peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
-                                peer-focus:-top-2.5 peer-focus:text-black">Abstract</label>
+                            </div>
                         </div>
+                       
                         <div class="flex justify-end">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
                             <button type="button" id="cancel-btn" class="bg-gray-400 text-white px-4 py-2 rounded ml-2">Cancel</button>
@@ -206,7 +194,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     title: document.createTextNode(jInfo.id ? "Edit Widget" : "Add New Widget"),
                     content: crudBody
                 });
-                newPop.htmlContent.style.cssText += `background:white; border:1px solid rgba(255,255,255,0.2);`;
+                newPop.htmlContent.style.cssText += `background:white; border:1px solid rgba(255,255,255,0.2); padding:2rem;`;
                 newPop.htmlClose.style.cssText += `--_color:black;`;
                 newPop.htmlUpBar.classList.add("flex", "w-full", "items-center", "font-bold", "text-2xl", "py-4", "justify-center", "text-black");
 
@@ -303,13 +291,12 @@ $currentPath = $_ENV["CURRENT_PATH"];
                 <table id="widgets-table" class="table-auto w-full border-collapse border">
                     <thead>
                         <tr>
+                            <th class="border p-2">Position</th>
                             <th class="border p-2">Title</th>
-                            <th class="border p-2">Authors</th>
-                            <th class="border p-2">DOI</th>
-                            <th class="border p-2">Pages</th>
-                            <th class="border p-2">Keywords</th>
-                            <th class="border p-2">Publish Date</th>
+                            <th class="border p-2">Image</th>
+                            <th class="border p-2">Notes</th>
                             <th class="border p-2">Status</th>
+                            <th class="border p-2">Added</th>
                             <th class="border p-2">Actions</th>
                         </tr>
                     </thead>
@@ -317,22 +304,24 @@ $currentPath = $_ENV["CURRENT_PATH"];
 
                 // Loop through all widgets and display them in a single table
                 widgets.forEach(widget => {
+                    const position = widget.position || 'Not set';
                     const title = widget.title || 'No Title';
-                    const authors = widget.authors || 'Unknown Authors';
-                    const doi = widget.doi || 'N/A';
-                    const pages = widget.pages || 'N/A';
-                    const keywords = widget.keywords || 'N/A';
+                    const website_url = widget.website_url || 'Unknown website_url';
+                    const notes = widget.notes || 'N/A';
                     const publishDate = widget.publish_date || 'N/A';
                     const status = widget.status === "1" ? 'Published' : 'Draft';
+                    const image_url = widget.image_url ? `${currentPath + "/" + widget.image_url}` : `${
+                                    currentPath + "/upload/siteMedia/placeholder.png"}`;
 
-                    html += `<tr>
-                    <td class="border p-2"><a href="${widget.pdf_url}" class="hover:text-msp-primary duration-300 ease-in">${title}</a></td>
-                    <td class="border p-2">${authors}</td>
-                    <td class="border p-2"><a href="https://doi.org/${doi}" target="_blank">${doi}</a></td>
-                    <td class="border p-2">${pages}</td>
-                    <td class="border p-2">${keywords}</td>
-                    <td class="border p-2">${publishDate}</td>
+
+                    html += `
+                <tr>
+                    <td class="border p-2">${position}</td>
+                    <td class="border p-2"><a href="${website_url}" class="hover:text-msp-primary duration-300 ease-in">${title}</a></td>
+                    <td class="border p-2 w-[250px]"><div class="flex w-full"><img src="${image_url}" alt=""></div></td>
+                    <td class="border p-2 w-[250px] h-[100px] overflow-y-scroll">${notes}</td>
                     <td class="border p-2">${status}</td>
+                    <td class="border p-2">${publishDate}</td>
                     <td class="border p-2">
                         <div class="flex flex-col h-full w-full items-center gap-2">
                             <button class="edit-btn bg-msp-accent text-white px-4 py-2 rounded w-[5rem]" data-id="${widget.id}">Edit</button>
