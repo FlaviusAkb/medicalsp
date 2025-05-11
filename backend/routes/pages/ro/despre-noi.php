@@ -35,7 +35,7 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
                             "Echipa noastră de specialiști are o experiență vastă în domeniul Simulării Medicale, reușind până în acest moment să echipeze atât Spitale și Clinici importante, cât și Facultăți și Universități de Medicină și Farmacie din România cu echipamente și simulatoare de ultimă generație, care cu siguranță în următorii ani, vor schimba modul de abordare al formării profesionale din domeniul medical.",
                             "Mai mult decât atât, echipa noastră a avut onoarea și privilegiul de a face parte din echipa de dezvoltare și echipare a celui mai mare Centru de Simulare Medicală Multidisciplinară din Europa Centrală și de Est construit în București – Centrul de Simulare Medicală <a href='https://lifesim.ro/' class='text-msp-primary'>LifeSIM</a>."
                         ],
-                        "image_url" => "https://medicalsimulator.ro/wp-content/uploads/2020/05/22.png",
+                        "image_url" => "22",
                         "additional_section" => "",
                     ],
                     [
@@ -47,7 +47,7 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
                             "Simularea medicală poate fi folosită atât în scop didactic, cât și în procesul de evaluare, fiind un instrument obiectiv cu ajutorul căruia se poate cuantifica cu precizie evoluţia personalului medical în cadrul procesului de formare profesională continuă.
 "
                         ],
-                        "image_url" => "https://medicalsimulator.ro/wp-content/uploads/2020/05/333.png",
+                        "image_url" => "333",
                         "additional_section" => '
         <p class="mt-4">Simularea medicală poate fi folosită atât în scop didactic, cât și în procesul de evaluare, fiind un instrument obiectiv cu ajutorul căruia se poate cuantifica cu precizie evoluţia personalului medical în cadrul procesului de formare profesională continuă.</p>
         <h2 class="my-4">Simularea implică</h2>
@@ -66,7 +66,7 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
                             "Simulatoarele medicale au fost concepute ca instrumente pentru formarea continuă a specialiștilor din domeniul medical.",
                             "Simulatoarele noastre se adresează atât studenților, rezidenților, asistenților și personalului medical specializat, cât și tuturor instituțiilor de pregătire a personalului medical, școlilor militare și de pompieri."
                         ],
-                        "image_url" => "https://medicalsimulator.ro/wp-content/uploads/2020/05/4444.png",
+                        "image_url" => "4444",
                         "additional_section" => '
         <div class="flex flex-col my-4 md:flex-row">
         <div class="flex flex-col">
@@ -102,24 +102,25 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
                             "Echipa noastră este în strânsă colaborare cu partenerii noștri internaționali, care dezvoltă în mod continuu soluții și tehnologii inovatoare, și stabilesc noi standarde pentru viitorul simulării medicale. Portofoliul nostru complet cuprinde cele mai noi tehnologii în domeniul simulării medicale dezvoltate până în prezent.",
                             '<div class="flex items-center justify-center w-full">' . mspButton(text: "Portofoliu", link_class: "px-[1em] py-[0.5em] text-base", href: $_ENV["CURRENT_PATH"] . 'portofoliu/') . '</div>',
                         ],
-                        "image_url" => "https://medicalsimulator.ro/wp-content/uploads/2020/06/3594579.png",
+                        "image_url" => "3594579-768x454",
                         "additional_section" => '',
                     ],
                 ];
                 ?>
+
                 <?php
                 foreach ($side_by_side_sections as $section) {
                 ?>
                     <div class="flex flex-col items-center gap-4 w-full <?= $section["image_side"] === "left" ? 'flex-col-reverse md:flex-row-reverse' : '' ?> md:flex-row">
                         <div class="flex flex-col gap-4 justify-center text-left w-full md:w-1/2">
-                            <h2 class="my-4"><?php echo $section["title"]; ?></h2>
+                            <h2 class="my-4 text-nowrap"><?php echo $section["title"]; ?></h2>
                             <?php
                             foreach ($section["paragraphs"] as $paragraph) {
                                 echo "<p>" . $paragraph . "</p>";
                             } ?>
                         </div>
                         <div class="flex flex-col w-full justify-center items-center md:w-1/2">
-                            <img src="<?php echo $section["image_url"]; ?>" class="w-10/12" alt="">
+                            <img src="<?php echo $_ENV['CURRENT_PATH'] . "/upload/siteMedia/" . $section["image_url"] . ".webp"; ?>" class="w-10/12" alt="">
                         </div>
                     </div>
                     <div class="flex flex-col text-left"><?= $section["additional_section"]; ?></div>
@@ -151,7 +152,7 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
             <li><i aria-hidden="true" class="far fa-check-square mr-4 text-msp-green"></i>Sală debriefing</li>
         </ul>
         ',
-                        "image_url" => "https://medicalsimulator.ro/wp-content/uploads/2020/05/22.png",
+                        "image_url" => "22",
                         "right_column" => '
         <div class="flex flex-col p-6">
             <p class="text-white my-4">CONSULTANȚĂ ȘI PROIECTARE ÎN 3 ETAPE</p>

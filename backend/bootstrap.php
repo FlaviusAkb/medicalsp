@@ -48,3 +48,48 @@ function mspButton($href = "#", $link_class = "px-[1em] py-[0.5em]", $action = n
         return "<a href='$href' class='$link_safe_class'>$content</a>";
     }
 }
+
+
+function generateBreadcrumbs($separator = ' / ')
+{
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $path = trim($path, '/');
+    $segments = explode('/', $path);
+
+    $breadcrumbs = [];
+    $link = '/';
+
+    // Home link
+    // $breadcrumbs[] = "<a href=\"admin\">$home</a>";
+
+    foreach ($segments as $index => $segment) {
+        $link .= $segment . '/';
+        // Format segment: remove extension and capitalize
+        $name = ucfirst(str_replace(['.php', '_'], ['', ' '], $segment));
+        // If it's the last segment, no link
+        if ($index === count($segments) - 1) {
+            $breadcrumbs[] = $name;
+        } else {
+            $breadcrumbs[] = "<a href=\"$link\">$name</a>";
+        }
+    }
+
+    return implode($separator, $breadcrumbs);
+}
+
+
+// UUID generator
+function generateUUID(): string
+{
+    return sprintf(
+        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0x0fff) | 0x4000,
+        mt_rand(0, 0x3fff) | 0x8000,
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff)
+    );
+}

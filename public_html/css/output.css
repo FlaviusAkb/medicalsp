@@ -60,6 +60,7 @@
     --color-msp-dark-gray: #656565;
     --color-msp-blue: #6ec1e4;
     --color-msp-new-gray: #ffffff63;
+    --color-msp-placeholder-gray: #5353535e;
   }
 }
 @layer base {
@@ -1279,14 +1280,8 @@
   .h-\[100px\] {
     height: 100px;
   }
-  .h-\[140px\] {
-    height: 140px;
-  }
   .h-\[150px\] {
     height: 150px;
-  }
-  .h-\[200px\] {
-    height: 200px;
   }
   .h-\[268px\] {
     height: 268px;
@@ -1294,11 +1289,14 @@
   .h-\[300px\] {
     height: 300px;
   }
+  .h-auto {
+    height: auto;
+  }
   .h-full {
     height: 100%;
   }
-  .min-h-\[250px\] {
-    min-height: 250px;
+  .min-h-\[290px\] {
+    min-height: 290px;
   }
   .w-1\/2 {
     width: calc(1/2 * 100%);
@@ -1348,14 +1346,8 @@
   .w-\[160px\] {
     width: 160px;
   }
-  .w-\[200px\] {
-    width: 200px;
-  }
   .w-\[250px\] {
     width: 250px;
-  }
-  .w-\[362px\] {
-    width: 362px;
   }
   .w-full {
     width: 100%;
@@ -1420,9 +1412,6 @@
   .items-center {
     align-items: center;
   }
-  .items-end {
-    align-items: flex-end;
-  }
   .items-start {
     align-items: flex-start;
   }
@@ -1461,6 +1450,13 @@
       --tw-space-y-reverse: 0;
       margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
       margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
+  .space-x-1 {
+    :where(& > :not(:last-child)) {
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 1) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-x-reverse)));
     }
   }
   .space-x-4 {
@@ -1602,9 +1598,6 @@
     --tw-gradient-position: to right in oklab;
     background-image: linear-gradient(var(--tw-gradient-stops));
   }
-  .bg-\[url\(\'https\:\/\/medicalsimulator\.ro\/wp-content\/uploads\/2020\/04\/Logo-MSP-FINAL-400\.png\'\)\] {
-    background-image: url('https://medicalsimulator.ro/wp-content/uploads/2020/04/Logo-MSP-FINAL-400.png');
-  }
   .bg-\[url\(\'https\:\/\/medicalsimulator\.ro\/wp-content\/uploads\/2020\/04\/fundal-cu-oameni-1\.png\'\)\] {
     background-image: url('https://medicalsimulator.ro/wp-content/uploads/2020/04/fundal-cu-oameni-1.png');
   }
@@ -1638,6 +1631,9 @@
   }
   .bg-no-repeat {
     background-repeat: no-repeat;
+  }
+  .object-contain {
+    object-fit: contain;
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
@@ -1787,8 +1783,17 @@
     --tw-tracking: var(--tracking-wide);
     letter-spacing: var(--tracking-wide);
   }
+  .text-nowrap {
+    text-wrap: nowrap;
+  }
   .text-black {
     color: var(--color-black);
+  }
+  .text-gray-400 {
+    color: var(--color-gray-400);
+  }
+  .text-gray-500 {
+    color: var(--color-gray-500);
   }
   .text-gray-600 {
     color: var(--color-gray-600);
@@ -1814,6 +1819,9 @@
   .text-white {
     color: var(--color-white);
   }
+  .capitalize {
+    text-transform: capitalize;
+  }
   .lowercase {
     text-transform: lowercase;
   }
@@ -1827,6 +1835,10 @@
   }
   .opacity-25 {
     opacity: 25%;
+  }
+  .shadow {
+    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-\[0px_0px_10px_0px_rgba\(0\,0\,0\,0\.3\)\] {
     --tw-shadow: 0px 0px 10px 0px var(--tw-shadow-color, rgba(0,0,0,0.3));
@@ -2016,9 +2028,20 @@
       line-height: var(--tw-leading, var(--text-base--line-height));
     }
   }
+  .placeholder\:text-sm {
+    &::placeholder {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
+    }
+  }
   .placeholder\:text-msp-gray {
     &::placeholder {
       color: var(--color-msp-gray);
+    }
+  }
+  .placeholder\:text-msp-placeholder-gray {
+    &::placeholder {
+      color: var(--color-msp-placeholder-gray);
     }
   }
   .hover\:-translate-y-1 {
@@ -2190,11 +2213,6 @@
       height: 100px;
     }
   }
-  .md\:h-\[126px\] {
-    @media (width >= 48rem) {
-      height: 126px;
-    }
-  }
   .md\:h-\[400px\] {
     @media (width >= 48rem) {
       height: 400px;
@@ -2320,6 +2338,11 @@
       background-size: cover;
     }
   }
+  .md\:py-2 {
+    @media (width >= 48rem) {
+      padding-block: calc(var(--spacing) * 2);
+    }
+  }
   .md\:text-left {
     @media (width >= 48rem) {
       text-align: left;
@@ -2368,11 +2391,6 @@
   .lg\:h-\[190px\] {
     @media (width >= 64rem) {
       height: 190px;
-    }
-  }
-  .lg\:h-\[194px\] {
-    @media (width >= 64rem) {
-      height: 194px;
     }
   }
   .lg\:h-\[384px\] {
@@ -2440,11 +2458,6 @@
       row-gap: calc(var(--spacing) * 4);
     }
   }
-  .lg\:gap-y-12 {
-    @media (width >= 64rem) {
-      row-gap: calc(var(--spacing) * 12);
-    }
-  }
   .lg\:px-4 {
     @media (width >= 64rem) {
       padding-inline: calc(var(--spacing) * 4);
@@ -2509,7 +2522,7 @@
     font-family: "Roboto", sans-serif;
     letter-spacing: 0.04em;
     color: var(--color-msp-primary);
-    font-size: 27px;
+    font-size: 25px;
     font-weight: 400;
   }
   h3 {

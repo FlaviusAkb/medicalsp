@@ -1,7 +1,7 @@
 <?php
 class Widget
 {
-    private $jsonFile = __DIR__ . "/widget.json"; // Path to the JSON file
+    private $jsonFile = __DIR__ . "/widget.json";
 
     // Read all widgets
     public function getAll()
@@ -14,16 +14,16 @@ class Widget
         return is_array($decoded) ? $decoded : [];
     }
 
-
-    // Get a single widget by ID
+    // Get a single widget by UUID
     public function getById($id)
     {
         $widgets = $this->getAll();
         foreach ($widgets as $widget) {
-            if ($widget["id"] == $id) return $widget;
+            if ($widget["id"] === $id) return $widget;
         }
         return null;
     }
+
     public function getByUrl($path)
     {
         $widgets = $this->getAll();
@@ -33,25 +33,28 @@ class Widget
         return null;
     }
 
-    // Add a new widget
+    // Add a new widget with UUID
     public function add($data)
     {
         if (!is_array($data) || empty($data)) return false;
 
         $widgets = $this->getAll();
-        $data["id"] = count($widgets) > 0 ? max(array_column($widgets, "id")) + 1 : 1;
+
+        // Generate UUID if missing
+        $data["id"] = $data["id"] ?? $this->generateUuid();
+
         $widgets[] = $data;
         return $this->save($widgets);
     }
 
-
-    // Update an existing widget
+    // Update an existing widget by UUID
     public function update($id, $newData)
     {
         if (!is_array($newData) || empty($newData)) return false;
+
         $widgets = $this->getAll();
         foreach ($widgets as &$widget) {
-            if ($widget["id"] == $id) {
+            if ($widget["id"] === $id) {
                 $widget = array_merge($widget, $newData);
                 return $this->save($widgets);
             }
@@ -59,11 +62,10 @@ class Widget
         return false;
     }
 
-
-    // Delete an widget
+    // Delete a widget by UUID
     public function delete($id)
     {
-        $widgets = array_filter($this->getAll(), fn($widget) => $widget["id"] != $id);
+        $widgets = array_filter($this->getAll(), fn($widget) => $widget["id"] !== $id);
         return $this->save(array_values($widgets));
     }
 
@@ -72,5 +74,40 @@ class Widget
     {
         if (!is_array($data)) return false;
         return file_put_contents($this->jsonFile, json_encode($data, JSON_PRETTY_PRINT));
+    }
+
+    public function saveAll($widgets)
+    {
+        file_put_contents($this->jsonFile, json_encode($widgets, JSON_PRETTY_PRINT));
+    }
+
+    // Generate UUID (v4)
+    private function generateUuid()
+    {
+        return sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),     // 32 bits
+            mt_rand(0, 0xffff),                         // 16 bits
+            mt_rand(0, 0x0fff) | 0x4000,                // Version 4
+            mt_rand(0, 0x3fff) | 0x8000,                // Variant 10x
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff) // 48 bits
+        );
+    }
+
+    // Recalculate positions of widgets
+    public function recalculatePositions()
+    {
+        $widgets = $this->getAll();
+
+        // Recalculate positions
+        foreach ($widgets as $index => &$widget) {
+            $widget['position'] = $index;
+        }
+
+        // Save the updated positions
+        $this->saveAll($widgets);
     }
 }

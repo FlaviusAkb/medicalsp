@@ -1,0 +1,29 @@
+[
+    {
+        "email": "flavius.akb@gmail.com",
+        "nume": "",
+        "telefon": "",
+        "domeniu": "",
+        "status": "1",
+        "publish_date": "2025-05-11",
+        "id": 1
+    },
+    {
+        "email": "flavius2.akb@gmail.com",
+        "nume": "2",
+        "telefon": "2",
+        "domeniu": "2",
+        "status": "1",
+        "publish_date": "2025-05-11",
+        "id": 2
+    },
+    {
+        "email": "flavius23e.akb@gmail.com",
+        "nume": "23e",
+        "telefon": "23e",
+        "domeniu": "23e",
+        "status": "0",
+        "publish_date": "2025-05-01",
+        "id": 3
+    }
+]

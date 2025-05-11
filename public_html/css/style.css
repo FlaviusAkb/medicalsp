@@ -1,1 +1,10 @@
-/*# sourceMappingURL=style.css.map */
+#widgets-table td {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#widgets-table tr:nth-child(odd) {
+  background: #ddd;
+}
+#widgets-table tr:nth-child(even) {
+  background: #bbb;
+}/*# sourceMappingURL=style.css.map */

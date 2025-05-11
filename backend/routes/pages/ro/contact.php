@@ -12,8 +12,7 @@ $items_data = [
     "E-mail: office@medicalsimulator.ro"
 
 ];
-
-$image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.jpg";
+$image_src = $_ENV['CURRENT_PATH'] . "/upload/siteMedia/contactimg.webp";
 ?>
 
 
@@ -86,7 +85,7 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
                 {
                     id: "telefon",
                     label: "Telefon",
-                    type: "tel"
+                    type: "text"
                 },
                 {
                     id: "domeniu",
@@ -98,9 +97,9 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
 
             let contentHtml = contactFields.map(field => `
                     <div class="relative">
-                        <input id="contact-${field.id}" type="${field.type}" name="${field.id}" ${field.id==="email" || field.id==="nume" ? "required" : ""}  ${field.type==="tel" ? "pattern='[0-9()#&amp;+*-=.]+'" : ""}
+                        <input id="contact-${field.id}" type="${field.type}" name="${field.id}" ${field.id==="email" ? "required" : ""} 
                             class="peer leading-8 mb-4 block p-2 px-4 rounded-xl w-full  placeholder:text-base focus:outline-none bg-white"
-                            placeholder="${field.id === "email"|| field.id === "nume" ? field.label + '*' : field.label + " (opțional)"}" value=""/>
+                            placeholder="${field.id === "email" ? field.label + '*' : field.label + " (opțional)"}" value=""/>
                        
                     </div>
                 `).join('');
@@ -111,7 +110,7 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
             crudBody.className = `inset-0 flex justify-center items-center`;
             crudBody.id = `contactModal`;
             crudBody.innerHTML = `
-                    <form id="contact-form" enctype="multipart/form-data" class="flex flex-col w-full gap-4" method="POST" action="/api/form" onsubmit="validateForm(event)">
+                    <form id="contact-form" enctype="multipart/form-data" class="flex flex-col w-full gap-4" method="POST" onsubmit="validateForm(event)">
                         <div class="flex gap-4 flex-col items-center justify-center">
                             <div class="flex flex-col w-10/12">
                                 ${contentHtml}                     
@@ -120,7 +119,7 @@ $image_src = "https://medicalsimulator.ro/wp-content/uploads/2020/04/contactimg.
                                 class="bg-white peer block p-4 rounded-xl w-full placeholder-text-gray-500 focus:outline-none" 
                                 placeholder="Mesaj*"></textarea>
                         </div>
-                            <button type="submit" class="text-white px-1 py-3 my-4 rounded-full bg-msp-blue w-[45%] self-center hover:bg-[#4632da] transition duration-700 ease-in-out">Trimite<span class="ml-2 "><i aria-hidden="true" class="fas fa-arrow-right text-white"></i></span></button>
+                            <button type="submit" class="text-white px-1 py-3 my-4 rounded-full bg-msp-blue w-1/3 self-center hover:bg-[#4632da] transition duration-700 ease-in-out cursor-pointer">Trimite<span class="ml-2"><i aria-hidden="true" class="fas fa-arrow-right text-white"></i></span></button>
                     </form>
                 `;
 

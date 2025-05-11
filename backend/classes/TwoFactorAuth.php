@@ -190,15 +190,15 @@ class TwoFactorAuth
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
-        $mail->Host = "///////////";
+        $mail->Host = "//////////////////////////////";
         $mail->SMTPAuth = true;
-        $mail->Username = '///////////////';
-        $mail->Password = '////////////////';
+        $mail->Username = '//////////////////////////////';
+        $mail->Password = '//////////////////////////////';
         $mail->Port = 587;
         $mail->SMTPSecure = "tls";
 
         $mail->isHTML(true);
-        $mail->setFrom("/////////////////", "Test");
+        $mail->setFrom("//////////////////////////////", "Test");
         $mail->addAddress($_SESSION['2fa_email']);
         $mail->Subject = "Your 2FA Code";
         $mail->Body = $mailBody;

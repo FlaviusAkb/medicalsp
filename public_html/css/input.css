@@ -15,6 +15,7 @@
 	--color-msp-dark-gray: #656565;
 	--color-msp-blue: #6ec1e4;
 	--color-msp-new-gray: #ffffff63;
+	--color-msp-placeholder-gray: #5353535e;
 	/* shadows */
 	--shadow-neumorphic: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px #fff;
 
@@ -91,7 +92,7 @@
 		font-family: "Roboto", sans-serif;
 		letter-spacing: 0.04em;
 		color: var(--color-msp-primary);
-		font-size: 27px;
+		font-size: 25px;
 		font-weight: 400;
 	}
 
