@@ -119,8 +119,9 @@ $image_src = $_ENV['CURRENT_PATH'] . "/upload/siteMedia/contactimg.webp";
                                 class="bg-white peer block p-4 rounded-xl w-full placeholder-text-gray-500 focus:outline-none" 
                                 placeholder="Mesaj*"></textarea>
                         </div>
-                         <input type="hidden" id="status" name="status" value="newsletter-contact">
-                            <button type="submit" class="text-white px-1 py-3 my-4 rounded-full bg-msp-blue w-1/3 self-center hover:bg-[#4632da] transition duration-700 ease-in-out cursor-pointer">Trimite<span class="ml-2"><i aria-hidden="true" class="fas fa-arrow-right text-white"></i></span></button>
+                        <input type="hidden" id="source" name="source" value="newsletter-contact">
+                        <input type="hidden" name="form_time" value="<?= time(); ?>">
+                        <button type="submit" class="text-white px-1 py-3 my-4 rounded-full bg-msp-blue w-1/3 self-center hover:bg-[#4632da] transition duration-700 ease-in-out cursor-pointer">Trimite<span class="ml-2"><i aria-hidden="true" class="fas fa-arrow-right text-white"></i></span></button>
                     </form>
                 `;
 

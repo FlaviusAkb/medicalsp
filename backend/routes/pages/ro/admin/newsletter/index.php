@@ -58,25 +58,25 @@ $currentPath = $_ENV["CURRENT_PATH"];
                             </th>
                             <th class="border p-2">
                                 <div style="display:flex; grid-gap:10px;">
-                                    <input type="text" placeholder="Nume" data-sort="nume" class="srcInpt">
+                                    <input type="text" placeholder="Name" data-sort="nume" class="srcInpt">
                                     <div class="sortBtn" data-sort="nume">ASC</div>
                                 </div>
                             </th>
                             <th class="border p-2">
                                 <div style="display:flex; grid-gap:10px;">
-                                    <input type="text" placeholder="Telefon" data-sort="tel" class="srcInpt">
-                                    <div class="sortBtn" data-sort="tel">ASC</div>
+                                    <input type="text" placeholder="Phone" data-sort="telefon" class="srcInpt">
+                                    <div class="sortBtn" data-sort="telefon">ASC</div>
                                 </div>
                             </th>
                             <th class="border p-2">
                                 <div style="display:flex; grid-gap:10px;">
-                                    <input type="text" placeholder="Domeniu" data-sort="domeniu" class="srcInpt">
+                                    <input type="text" placeholder="Domain" data-sort="domeniu" class="srcInpt">
                                     <div class="sortBtn" data-sort="domeniu">ASC</div>
                                 </div>
                             </th>
                             <th class="border p-2">
                                 <div style="display:flex; grid-gap:10px;">
-                                    <input type="text" placeholder="Mesaj" data-sort="mesaj" class="srcInpt">
+                                    <input type="text" placeholder="Message" data-sort="mesaj" class="srcInpt">
                                     <div class="sortBtn" data-sort="mesaj">ASC</div>
                                 </div>
                             </th>
@@ -88,8 +88,8 @@ $currentPath = $_ENV["CURRENT_PATH"];
                             </th>
                             <th class="border p-2">
                                 <div style="display:flex; grid-gap:10px;">
-                                    <input type="text" placeholder="Status" data-sort="status" class="srcInpt">
-                                    <div class="sortBtn" data-sort="status">ASC</div>
+                                    <input type="text" placeholder="Source" data-sort="source" class="srcInpt">
+                                    <div class="sortBtn" data-sort="source">ASC</div>
                                 </div>
                             </th>
 
@@ -183,7 +183,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
 
 
             $(document).on("click", ".sortBtn", function() {
-                $(".sortBtn").html("N/A");
+                $(".sortBtn").html('<i class="fas fa-sort"></i>');
                 $(this).html(sortDirection);
                 sortBy = this.dataset.sort;
                 sortDirection = sortDirection == "asc" ? "desc" : "asc";
@@ -214,7 +214,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
                         action: 'getAll'
                     },
                     success: function(response) {
-                        console.log(response);
                         let newsletters = JSON.parse(response);
                         liveNewsletters = newsletters;
                         allNewsletters = newsletters;
@@ -222,10 +221,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     }
                 });
             }
-
             loadNewsletters();
-
-
 
             function makeCrud(jInfo) {
                 const leftFields = [{
@@ -235,17 +231,17 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     },
                     {
                         id: "nume",
-                        label: "Nume",
+                        label: "Name",
                         type: "text"
                     },
                     {
                         id: "telefon",
-                        label: "Telefon",
+                        label: "Phone",
                         type: "tel"
                     },
                     {
                         id: "domeniu",
-                        label: "Domeniu",
+                        label: "Domain",
                         type: "text"
                     },
                 ];
@@ -257,8 +253,8 @@ $currentPath = $_ENV["CURRENT_PATH"];
                 }];
 
                 const selectFields = [{
-                    id: "status",
-                    label: "Status",
+                    id: "source",
+                    label: "Source",
                     options: [{
                         value: "newsletter-footer",
                         text: "Footer"
@@ -333,8 +329,9 @@ $currentPath = $_ENV["CURRENT_PATH"];
                             <label for="mesaj" class="absolute left-0 ml-2 -top-2.5 bg-white px-2 text-gray-600
                                 duration-200 transform scale-100 origin-[0] 
                                 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
-                                peer-focus:-top-2.5 peer-focus:text-black">Mesaj</label>
+                                peer-focus:-top-2.5 peer-focus:text-black">Message</label>
                         </div>
+                        <input type="hidden" name="form_time" value="<?= time(); ?>">
                         <div class="flex justify-end">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
                             <button type="button" id="cancel-btn" class="bg-gray-400 text-white px-4 py-2 rounded ml-2">Cancel</button>
@@ -479,11 +476,11 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     liveNewsletters.forEach(newsletter => {
                         const email = newsletter.email || 'No Email';
                         const nume = newsletter.nume || 'Unknown Nume';
-                        const tel = newsletter.telefon || 'N/A';
+                        const telefon = newsletter.telefon || 'N/A';
                         const domeniu = newsletter.domeniu || 'N/A';
                         const mesaj = newsletter.mesaj || 'N/A';
                         const publishDate = newsletter.publish_date || 'N/A';
-                        const status = newsletter.status || 'N/A';
+                        const source = newsletter.source || 'N/A';
 
                         html += `
                     <tr>
@@ -495,11 +492,11 @@ $currentPath = $_ENV["CURRENT_PATH"];
                         </td>
                         <td class="border p-2">${email}</td>
                         <td class="border p-2">${nume}</td>
-                        <td class="border p-2">${tel}</td>
+                        <td class="border p-2">${telefon}</td>
                         <td class="border p-2">${domeniu}</td>
                         <td class="border p-2">${mesaj}</td>
                         <td class="border p-2">${publishDate}</td>
-                        <td class="border p-2">${status}</td>
+                        <td class="border p-2">${source}</td>
                     </tr>`;
                     });
                     html += ``;
@@ -548,10 +545,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
 
             return arr;
         }
-
-        window.onerror = function(message, source, lineno, colno, error) {
-            console.error("JS Error:", message, "at", source + ':' + lineno + ':' + colno);
-        };
     </script>
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/footer.php"; ?>
 </body>
