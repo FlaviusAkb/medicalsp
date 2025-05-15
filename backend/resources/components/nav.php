@@ -13,11 +13,21 @@ $currentURL = $_SERVER['REQUEST_URI'];
 
         <!-- Desktop Menu -->
         <?php
+
+        $menuItems = [];
+
         $menuItems = [
             "Despre noi" => $_ENV["CURRENT_PATH"] . "/despre-noi",
             "Portofoliu" => $_ENV["CURRENT_PATH"] . "/portofoliu",
             "Contact" => $_ENV["CURRENT_PATH"] . "/contact",
         ];
+        if (!array_key_exists("id", $_SESSION)) {
+            $menuItems["Login"] = $_ENV["CURRENT_PATH"] . "/login";
+        }
+        if (array_key_exists("id", $_SESSION)) {
+            $menuItems["Admin"] = $_ENV["CURRENT_PATH"] . "/admin";
+        }
+
         ?>
 
 
@@ -43,7 +53,7 @@ $currentURL = $_SERVER['REQUEST_URI'];
             </div>
             <hr class="hidden h-[3px] border-0 my-3 bg-msp-primary w-full lg:flex">
             <!-- MD Menu -->
-            <nav class="hidden md:flex md:w-full md:items-center md:justify-end leading-[80px] tracking-[2px] cursor-pointer transition-[opacity,color] duration-[300ms] ease-in-out">
+            <nav class="hidden md:flex md:w-full md:items-center md:justify-end leading-[80px] tracking-[2px] cursor-pointer transition-[opacity,color] duration-[300ms] ease-in-out ">
                 <?php foreach ($menuItems as $name => $link) :
                     $isActive = (strpos($currentURL, $link) !== false);
                     $isTextColor = $isActive ? "text-msp-primary" : "text-msp-dark group-hover:text-msp-primary";
@@ -62,6 +72,12 @@ $currentURL = $_SERVER['REQUEST_URI'];
                         </span>
                     </a>
                 <?php endforeach; ?>
+                <?php
+                if (array_key_exists("id", $_SESSION)) { ?>
+                    <a href="/logout" class="bg-msp-primary text-white px-4 py-2 rounded ml-4 hover:bg-red-600 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">Logout</a>
+                <?php
+                }
+                ?>
             </nav>
         </div>
         <!-- Hamburger Button -->
@@ -70,7 +86,7 @@ $currentURL = $_SERVER['REQUEST_URI'];
         </button>
 
         <!-- Mobile Menu -->
-        <nav id="mobileMenu" class="flex flex-col fixed top-0 right-0 h-full w-[160px] bg-white shadow-md transform translate-x-full transition-transform duration-300 ease-in-out  p-4 lg:hidden">
+        <nav id="mobileMenu" class="flex flex-col fixed top-0 right-0 h-full w-[160px] bg-white shadow-md transform translate-x-full transition-transform duration-300 ease-in-out p-4 lg:hidden">
             <button id="closeMenuBtn" class="self-end p-2 focus:outline-none text-[18px] text-msp-primary font-roboto cursor-pointer">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#dd4949">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="5" d="M6 18L18 6M6 6l12 12" />
@@ -83,6 +99,10 @@ $currentURL = $_SERVER['REQUEST_URI'];
                 <a href="<?= htmlspecialchars($link); ?>" class="block py-3 px-4 text-[18px] font-extrabold font-roboto <?= $isActive ?>">
                     <?= htmlspecialchars($name); ?>
                 </a>
+
+                <?php if ($name === "Log out") { ?>
+                    <a href="/logout" class="bg-msp-primary text-white px-4 py-2 rounded hover:bg-red-600 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">Logout</a>
+                <?php } ?>
             <?php endforeach; ?>
         </nav>
 
@@ -91,24 +111,20 @@ $currentURL = $_SERVER['REQUEST_URI'];
 /*
 #####################################           /admin/
 */
-$requestUri = $_SERVER['REQUEST_URI'];
-if (strpos($requestUri, '/admin/') !== false && strpos($requestUri, '/admin/2fa') === false) {
+if (array_key_exists("id", $_SESSION)) {
 ?>
     <div class="flex">
-        <nav class="flex w-10/12 mx-auto justify-between items-center py-4">
+        <nav class="flex w-10/12 mx-auto justify-between items-center py-4 md:hidden">
             <div class="text-sm text-gray-500 space-x-1 w-full">
                 <?php echo generateBreadcrumbs(' <span class="text-gray-400">/</span> '); ?>
             </div>
-
-            <div class="flex w-full justify-end items-center">
-                <form method="POST" action="<?php echo $currentPath ?>/api/2fa">
-                    <input type="hidden" name="case" value="logout">
-                    <button type="submit" class="bg-msp-primary text-white px-4 py-2 rounded mb-4 hover:bg-red-600 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">Logout</button>
-                </form>
-            </div>
         </nav>
     </div>
-<?php } ?>
+<?php }
+
+?>
+
+
 <!-- JavaScript to Toggle Shadow on Scroll -->
 <script>
     const navbar = document.getElementById("navbar");

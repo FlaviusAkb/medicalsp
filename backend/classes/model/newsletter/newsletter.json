@@ -1,29 +1,52 @@
 [
     {
         "email": "flavius.akb@gmail.com",
-        "nume": "",
-        "telefon": "",
-        "domeniu": "",
-        "status": "1",
-        "publish_date": "2025-05-11",
+        "nume": "a",
+        "telefon": "a",
+        "domeniu": "a",
+        "publish_date": "2025-05-15",
+        "mesaj": "a",
+        "status": "newsletter-footer",
         "id": 1
     },
     {
-        "email": "flavius2.akb@gmail.com",
+        "email": "flavius.akb2@gmail.com",
         "nume": "2",
         "telefon": "2",
         "domeniu": "2",
-        "status": "1",
-        "publish_date": "2025-05-11",
+        "publish_date": "2025-05-23",
+        "mesaj": "2",
+        "status": "newsletter-contact",
         "id": 2
     },
     {
-        "email": "flavius23e.akb@gmail.com",
-        "nume": "23e",
-        "telefon": "23e",
-        "domeniu": "23e",
-        "status": "0",
-        "publish_date": "2025-05-01",
+        "email": "flavius.akb@gmail.com",
+        "nume": "home2",
+        "telefon": "3home",
+        "domeniu": "home4",
+        "publish_date": "2025-05-15",
+        "mesaj": null,
+        "status": "newsletter-home",
         "id": 3
+    },
+    {
+        "email": "flavius.akb@gmail.com",
+        "nume": "footer",
+        "telefon": "3",
+        "domeniu": "footer2",
+        "publish_date": "2025-05-15",
+        "mesaj": null,
+        "status": "newsletter-footer",
+        "id": 4
+    },
+    {
+        "email": "flavius.akb@gmail.com",
+        "nume": "",
+        "telefon": "",
+        "domeniu": "",
+        "publish_date": "2025-05-15",
+        "mesaj": null,
+        "status": "newsletter-footer",
+        "id": 5
     }
 ]

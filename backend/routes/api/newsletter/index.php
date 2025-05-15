@@ -1,96 +1,96 @@
 <?php
-
-require_once '../' . $_ENV["BACKEND"] . '/classes/model/newsletter/newsletter.php';
-
 $newsletterModel = new Newsletter();
 
-function clean_input($data)
-{
-    return htmlspecialchars(trim($data));
+$action = isset($_POST['action']) ? $_POST['action'] : '';
+
+switch ($action) {
+    case 'getAll':
+        $newsletters = $newsletterModel->getAll();
+        echo json_encode($newsletters);
+        break;
+
+    case 'getById':
+        $id = (int)($_POST['id'] ?? 0);
+        $newsletter = $newsletterModel->getById($id);
+        if ($newsletter) {
+            echo json_encode($newsletter);
+        } else {
+            response("Newsletter not found !", 500);
+        }
+        break;
+
+    case 'save':
+
+        //email check
+        $email =  isset($_POST['email']) ? $_POST['email'] : "N/A";
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $safe_email = $email;
+        } else {
+            response("Invalid email address.", 400);
+            exit;
+        }
+
+        //date check
+        $publish_date = isset($_POST['publish_date']) ? $_POST['publish_date'] : (new DateTime())->format('Y-m-d');
+        $date_check = DateTime::createFromFormat('Y-m-d', $publish_date);
+        if (!$date_check || $date_check->format('Y-m-d') !== $publish_date) {
+            response("Invalid publish date.", 400);
+            exit;
+        }
+        $safe_date = $publish_date;
+
+        // status check
+        $status = isset($_POST['status']) ? $_POST['status'] : "N/A";
+        $valid_status_options = ["newsletter-footer", "newsletter-home", "newsletter-contact"];
+        if (in_array($status, $valid_status_options)) {
+            $safe_status = $status;
+        } else {
+            response("Invalid status value.", 400);
+            exit;
+        }
+
+        $data = [
+            'email' => $safe_email,
+            'nume' => default_input('nume'),
+            'telefon' => default_input('telefon'),
+            'domeniu' => default_input('domeniu'),
+            'publish_date' => $safe_date,
+            'mesaj' => default_input('mesaj'),
+            'status' => $safe_status,
+        ];
+
+        $id = $_POST['id'] ?? null;
+        if (!empty($id) && $id !== 'undefined') {
+            $newsletterModel->update((int)$id, $data);
+        } else {
+            $newsletterModel->add($data);
+        }
+
+        response("Actualizare reusita !", 200);
+        break;
+
+    case 'delete':
+        $id = (int)($_POST['id'] ?? 0);
+        $newsletterModel->delete($id);
+        response("Actualizare reusita !", 200);
+        break;
+
+    default:
+        response("Invalid action !", status: 400);
+        break;
 }
 
 
-$method = $_SERVER["REQUEST_METHOD"];
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return substr($data, 0, 255);
+}
 
-if ($method === "POST") {
-
-    $action = $_POST['action'] ?? '';
-
-    switch ($action) {
-
-        case 'getAll':
-            echo json_encode($newsletterModel->getAll());
-            break;
-
-        case 'getById':
-            $id = $_POST['id'] ?? '';
-            if (!$id) {
-                response("Invalid ID", 500);
-            }
-            $newsletter = $newsletterModel->getById($id);
-            if ($newsletter) {
-                echo json_encode($newsletter);
-            } else {
-                response("Newsletter not found", 404);
-            }
-            break;
-
-        case 'save':
-            $id = $_POST["id"] ?? null;
-            $existingNewsletter = [];
-
-            // Validate status input
-            $posted_status = $_POST["status"] ?? null;
-            $status = in_array($posted_status, ["0", "1"], true)
-                ? clean_input($posted_status)
-                : "1";
-
-            $data = [
-                'email' => filter_var($_POST["email"], FILTER_SANITIZE_EMAIL),
-                'nume' => clean_input($_POST["nume"]),
-                'telefon' => clean_input($_POST["telefon"]),
-                'domeniu' => clean_input($_POST["domeniu"]),
-                'status' => $status,
-            ];
-
-            // Validation
-            if (empty($data['email'])) {
-                response("Email is required!", 500);
-            }
-
-            if (!empty($id) && $id !== 'undefined') {
-                $data['publish_date'] = clean_input($_POST["publish_date"]);
-                // $data['status'] = $posted_status;
-                $newsletterModel->update($id, $data);
-                response("Form updated successfully!", 200);
-            } else {
-                $data['publish_date'] = new DateTime()->format('Y-m-d');
-                // $data['status'] = "1";
-                $newsletterModel->add($data);
-                response("Form submitted successfully!", 200);
-            }
-
-            break;
-
-
-        case 'delete':
-            $id = $_POST['id'] ?? '';
-            if (!$id) {
-                response("Can't delete! Invalid ID", 500);
-            }
-
-            $existingNewsletter = $newsletterModel->getById($id);
-            if (!$existingNewsletter) {
-                response("Newsletter not found", 404);
-            }
-
-            $newsletterModel->delete($id);
-            response("Form removed", 200);
-            break;
-
-        default:
-            response("Unknown action", 500);
-    }
-} else {
-    response("Invalid method.", 405);
+function default_input($key)
+{
+    return array_key_exists($key, $_POST) ? test_input($_POST[$key]) : null;
 }

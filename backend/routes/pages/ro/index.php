@@ -32,6 +32,7 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
                     <input class="w-full bg-transparent placeholder:text-msp-placeholder-gray text-black text-xs rounded-full px-3 py-3 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200 md:py-2 placeholder:text-sm" name="nume" placeholder="Nume (Optional)" type="text" />
                     <input class="w-full bg-transparent placeholder:text-msp-placeholder-gray text-black text-xs rounded-full px-3 py-3 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200 md:py-2 placeholder:text-sm" name="telefon" placeholder="Telefon (Optional)" type="tel" />
                     <input class="w-full bg-transparent placeholder:text-msp-placeholder-gray text-black text-xs rounded-full px-3 py-3 transition duration-300 ease shadow-neumorphic focus:shadow-none focus:outline-none focus:border border-slate-200 md:py-2 placeholder:text-sm" name="domeniu" placeholder="Domeniul de activitate (Optional)" type="text" />
+                    <input type="hidden" id="status" name="status" value="newsletter-home">
                     <?= mspButton(text: "Trimite", type: 'submit', link_class: "px-[0.5em] py-[0.5em] text-lg w-1/3 mt-4 self-center md:w-3/4 lg:w-2/4"); ?>
                 </form>
             </div>

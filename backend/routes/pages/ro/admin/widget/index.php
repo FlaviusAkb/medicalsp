@@ -1,8 +1,5 @@
 <?php
 include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
-// TwoFactorAuth::require2FA();
-// $currentPath = $_ENV["CURRENT_PATH"];
-$currentPath = 'http://192.168.0.171';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION["LANG"]; ?>">

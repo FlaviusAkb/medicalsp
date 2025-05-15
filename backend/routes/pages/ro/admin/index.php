@@ -1,8 +1,5 @@
 <?php
 include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
-TwoFactorAuth::require2FA();
-// $currentPath = $_ENV["CURRENT_PATH"];
-$currentPath = 'http://192.168.0.171';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION["LANG"]; ?>">
@@ -25,6 +22,7 @@ $currentPath = 'http://192.168.0.171';
             <li><a href="/admin/widget">Portfolio Widgets</a></li>
             <li><a href="/admin/newsletter">Newsletter form entries</a></li>
             <li><a href="/admin/contact">Contact form entries</a></li>
+            <li><a href="/admin/newsletter">Newsletters form entries</a></li>
         </ul>
 
     </div>

@@ -10,7 +10,7 @@ $dotenv->load();
 require "src/qof.php";
 require "classes/Routing.php";
 require "classes/Web.php";
-require "classes/TwoFactorAuth.php";
+require "classes/model/newsletter/Newsletter.php";
 require "classes/readFile.php";
 require "classes/Auth.php";
 require "classes/model/widget/Widget.php";
