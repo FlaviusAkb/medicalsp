@@ -21,7 +21,6 @@ include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
         <ul class="flex flex-col">
             <li><a href="/admin/widget">Portfolio Widgets</a></li>
             <li><a href="/admin/newsletter">Newsletter form entries</a></li>
-            <li><a href="/admin/widget">Widget form entries</a></li>
         </ul>
 
     </div>
