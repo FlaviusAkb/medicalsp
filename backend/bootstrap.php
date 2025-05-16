@@ -11,12 +11,10 @@ require "src/qof.php";
 require "classes/Routing.php";
 require "classes/Web.php";
 require "classes/model/newsletter/Newsletter.php";
+require "classes/model/widget/Widget.php";
 require "classes/readFile.php";
 require "classes/Auth.php";
-require "classes/model/widget/Widget.php";
 require "resources/languages/languages.php";
-
-
 function mspButton($href = "#", $link_class = "px-[1em] py-[0.5em]", $action = null, $type = null, $text = "Abonează-te", $text_class = null)
 {
     $href = htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
