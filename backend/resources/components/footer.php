@@ -64,8 +64,10 @@
                  <form id="newsletterForm" method="POST" enctype="multipart/form-data" class="flex flex-col w-full gap-4" onsubmit="validateForm(event)">
                         <div class="flex gap-4 flex-col items-center justify-center">
                             <div class="flex flex-col w-10/12">
-                                <input type="hidden" id="newsletterForm" name="id" value="">
-                                ${contentHtml}                     
+                                ${contentHtml}
+                                 <input type="hidden" id="newsletterForm" name="id" value="">
+                                <input type="hidden" id="source" name="source" value="newsletter-footer">
+                                <input type="hidden" name="form_time" value="<?= time(); ?>">                     
                            <button type="submit" class="relative overflow-hidden text-white px-4 py-3 my-4 rounded-full w-[45%] self-center bg-gradient-to-r from-[#365BE2] via-[#365BE2] to-[#1F99EE] transition duration-700 ease-in-out hover:from-[#365BE2] hover:via-[#1F99EE] hover:to-[#00dafc]">Trimite<span class="ml-2"><i aria-hidden="true" class="fas fa-arrow-right text-white"></i></span></button>
                     </form>
                 `;
@@ -155,11 +157,6 @@
         // Choose the controller path based on form ID
         let controllerPath = "/api/newsletter"; // default
 
-        if (formId === "contact-form") {
-
-            controllerPath = "/api/contact";
-        }
-
         if (form.checkValidity()) {
             console.log("Form is OK!");
 
@@ -176,6 +173,12 @@
                 .then(data => {
                     console.log(data);
                     form.reset();
+
+                    // resets the timer
+                    const timeInput = form.querySelector('input[name="form_time"]');
+                    if (timeInput) {
+                        timeInput.value = Math.floor(Date.now() / 1000);
+                    }
 
                     errors.alertBody({
                         body: data.message,

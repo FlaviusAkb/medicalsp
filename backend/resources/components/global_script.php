@@ -95,17 +95,17 @@ if (strpos($requestUri, '/admin/widget') !== false) {
             let html = `<h2 class="font-raleway font-semibold text-black text-[17px] mb-[20px] text-left w-full text-center">Widgets (${widgets.length})</h2>`;
 
             html += `<input type="text" id="search" class="mb-4 p-2 w-full border border-gray-300 rounded" placeholder="Search widgets...">
-             <div class="overflow-x-auto">
+             <div class="overflow-y-scroll">
                 <table id="widgets-table" class="table-auto w-full border-collapse border">
                     <thead>
                         <tr>
+                            <th class="border p-2">Actions</th>
                             <th class="border p-2">Position</th>
                             <th class="border p-2">Title</th>
                             <th class="border p-2">Image</th>
                             <th class="border p-2">Notes</th>
                             <th class="border p-2">Status</th>
                             <th class="border p-2">Added</th>
-                            <th class="border p-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>`;
@@ -121,18 +121,19 @@ if (strpos($requestUri, '/admin/widget') !== false) {
                 const image_url = widget.image_url ? `${ widget.image_url}` : `${currentPath + "/upload/siteMedia/placeholdery.png"}`;
                 html += `
                 <tr draggable="true" ondragstart="dragit(event)" ondragover="dragover(event)" data-id="${widget.id}">
-                    <td class="border p-2">${position + 1}</td>
-                    <td class="border p-2"><a href="${website_url}" class="hover:text-msp-primary duration-300 ease-in">${title}</a></td>
-                    <td class="border p-2 w-[250px]"><div class="flex w-full"><img src="${image_url}" alt=""></div></td>
-                    <td class="border p-2 w-[250px] h-[100px] overflow-y-scroll">${notes}</td>
-                    <td class="border p-2">${status}</td>
-                    <td class="border p-2">${publishDate}</td>
                     <td class="border p-2">
                         <div class="flex flex-col h-full w-full items-center gap-2">
                             <button class="edit-btn bg-msp-accent text-white px-4 py-2 rounded w-[5rem] cursor-pointer" data-id="${widget.id}">Edit</button>
                             <button class="delete-btn bg-msp-primary text-white px-4 py-2 rounded w-[5rem] cursor-pointer" data-id="${widget.id}">Delete</button>
                         </div>
                     </td>
+                    <td class="border p-2">${position + 1}</td>
+                    <td class="border p-2"><a href="${website_url}" class="hover:text-msp-primary duration-300 ease-in">${title}</a></td>
+                    <td class="border p-2 w-[250px]"><div class="flex w-full"><img src="${image_url}" alt=""></div></td>
+                    <td class="border p-2 w-[250px] h-[100px] overflow-y-scroll">${notes}</td>
+                    <td class="border p-2">${status}</td>
+                    <td class="border p-2">${publishDate}</td>
+                    
                 </tr>`;
             });
 
@@ -263,7 +264,7 @@ if (strpos($requestUri, '/admin/widget') !== false) {
                                 ${selectHTML}
                             </div>
                            <div id="image-preview-wrapper" class="relative mb-6">
-                            <img id="image-preview" class="h-[150px]" src="${jInfo.image_url ? jInfo.image_url : currentPath + '/upload/siteMedia/placeholder.png'}" 
+                            <img id="image-preview" class="h-[150px] w-full" src="${jInfo.image_url ? jInfo.image_url : currentPath + '/upload/siteMedia/placeholder.png'}" 
                                 alt="Preview"
                                 onerror="this.src='${currentPath}/upload/siteMedia/placeholdery.png'}">
                             <button type="button" id="remove-image-btn" class="absolute top-0 right-0 bg-red-600 text-white px-2 py-1 text-xs rounded cursor-pointer">Remove</button>

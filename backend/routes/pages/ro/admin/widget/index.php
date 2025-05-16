@@ -1,8 +1,5 @@
 <?php
 include "../" . $_ENV["BACKEND"] . "/classes/seo.php";
-// TwoFactorAuth::require2FA();
-// $currentPath = $_ENV["CURRENT_PATH"];
-$currentPath = 'http://192.168.0.171';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION["LANG"]; ?>">
@@ -23,7 +20,7 @@ $currentPath = 'http://192.168.0.171';
     <div class="container flex flex-col px-6 mt-[50px] mb-[100px] mx-auto items-center justify-start md:gap-4 lg:px-4 xlg:max-w-full">
         <div id="widget-tabs" class="flex w-full"></div>
         <button id="addWidgetBtn" class="bg-green-500 text-white px-4 py-2 rounded mb-4 cursor-pointer">Add New Widget</button>
-        <div id="widget-list"></div>
+        <div id="widget-list" class="w-full"></div>
     </div>
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/global_script.php"; ?>
     <?php include "../" . $_ENV["BACKEND"] . "/resources/components/footer.php"; ?>

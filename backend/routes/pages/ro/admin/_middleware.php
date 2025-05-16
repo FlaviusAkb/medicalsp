@@ -1,3 +1,4 @@
-<script>
-    console.log("You'll need to log in.")
-</script>
+<?php
+if (!isset($_SESSION["id"])) {
+    header("Location: " . $_ENV["CURRENT_PATH"] . "/");
+}
