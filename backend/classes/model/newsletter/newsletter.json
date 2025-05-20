@@ -1,32 +1,52 @@
 [
     {
-        "email": "test@mail.com",
-        "nume": "A",
-        "telefon": "B",
-        "domeniu": "C",
-        "publish_date": "2025-05-15",
-        "mesaj": null,
-        "source": "newsletter-home",
+        "email": "test@test.com",
+        "nume": "footer",
+        "telefon": "7777",
+        "domeniu": "777",
+        "publish_date": "2025-05-20 17:00:00",
+        "mesaj": "77777",
+        "source": "newsletter-footer",
         "id": 1
     },
     {
-        "email": "test2@mail.com",
-        "nume": "A2",
-        "telefon": "B2",
-        "domeniu": "C2",
-        "publish_date": "2025-05-15",
+        "email": "test@test.com",
+        "nume": "t",
+        "telefon": "t",
+        "domeniu": "0953",
+        "publish_date": "2025-05-20 09:53:27",
         "mesaj": null,
         "source": "newsletter-footer",
         "id": 2
     },
     {
-        "email": "test3@mail.com",
-        "nume": "A3",
-        "telefon": "B3",
-        "domeniu": "C3",
-        "publish_date": "2025-05-15",
-        "mesaj": "D3",
-        "source": "newsletter-contact",
+        "email": "test@tttt.com",
+        "nume": "0954",
+        "telefon": "tel",
+        "domeniu": "dom",
+        "publish_date": "2025-05-20 09:54:36",
+        "mesaj": null,
+        "source": "newsletter-home",
         "id": 3
+    },
+    {
+        "email": "test@mailx.co",
+        "nume": "nume",
+        "telefon": "tel",
+        "domeniu": "dom",
+        "publish_date": "2025-05-20 09:55:20",
+        "mesaj": "mesaj nou 0955",
+        "source": "newsletter-contact",
+        "id": 4
+    },
+    {
+        "email": "g@gmail.com",
+        "nume": "test",
+        "telefon": "test2",
+        "domeniu": "test3",
+        "publish_date": "2025-05-31 00:03:00",
+        "mesaj": "test4",
+        "source": "newsletter-footer",
+        "id": 5
     }
 ]

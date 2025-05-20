@@ -21,20 +21,24 @@ switch ($action) {
 
     case 'save':
 
-        //spam prevention
-        $form_time = isset($_POST['form_time']) ? (int)$_POST['form_time'] : 0;
-        $current_time = time();
-        $last_submit_time = $_SESSION['last_submit_time'] ?? 0;
+        $is_crud_form = isset($_POST['crud-form']);
 
-        if ($form_time === 0 || ($current_time - $form_time) < 5) {
-            response("Form submitted too quickly. Please wait a few seconds.", 429);
-            exit;
-        }
+        if (!$is_crud_form) {
+            //spam prevention
+            $form_time = isset($_POST['form_time']) ? (int)$_POST['form_time'] : 0;
+            $current_time = time();
+            $last_submit_time = $_SESSION['last_submit_time'] ?? 0;
 
-        // Optional: block if last submit was less than 5 seconds ago
-        if ($last_submit_time > 0 && ($current_time - $last_submit_time) < 5) {
-            response("Please wait before submitting again.", 429);
-            exit;
+            if ($form_time === 0 || ($current_time - $form_time) < 5) {
+                response("Form submitted too quickly. Please wait a few seconds.", 429);
+                exit;
+            }
+
+            // Optional: block if last submit was less than 5 seconds ago
+            if ($last_submit_time > 0 && ($current_time - $last_submit_time) < 5) {
+                response("Please wait before submitting again.", 429);
+                exit;
+            }
         }
 
         //email check
@@ -48,13 +52,15 @@ switch ($action) {
         }
 
         //date check
-        $publish_date = isset($_POST['publish_date']) ? $_POST['publish_date'] : (new DateTime())->format('Y-m-d');
-        $date_check = DateTime::createFromFormat('Y-m-d', $publish_date);
-        if (!$date_check || $date_check->format('Y-m-d') !== $publish_date) {
+        $publish_date = isset($_POST['publish_date']) ? $_POST['publish_date'] : (new DateTime())->format('Y-m-d H:i:s');
+        $timestamp = strtotime($publish_date);
+
+        if (!$timestamp) {
             response("Invalid publish date.", 400);
             exit;
         }
-        $safe_date = $publish_date;
+
+        $safe_date = date('Y-m-d H:i:s', $timestamp);
 
         // source check
         $source = isset($_POST['source']) ? $_POST['source'] : "N/A";

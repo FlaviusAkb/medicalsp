@@ -30,13 +30,6 @@ $currentPath = $_ENV["CURRENT_PATH"];
 
     </div>
     <div class="container flex flex-col px-6 mt-[50px] mb-[100px] mx-auto items-center justify-start md:gap-4 lg:px-4 xlg:max-w-full">
-        <div class="flex w-full justify-end items-center">
-            <form method="POST" action="<?php echo $currentPath ?>/logout">
-                <input type="hidden" name="case" value="logout">
-                <button type="submit" class="bg-jmq-primary text-white px-4 py-2 rounded mb-4 hover:bg-red-600 transition delay-150 duration-300 ease-in-out hover:-translate-y-1">Logout</button>
-            </form>
-
-        </div>
         <div id="newsletter-tabs" class="flex w-full"></div>
         <button id="addNewsletterBtn" class="bg-green-500 text-white px-4 py-2 rounded mb-4">Add New Newsletter</button>
         <div style="width:100%;">
@@ -178,7 +171,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
 
 
             $(document).on("click", ".sortBtn", function() {
-                $(".sortBtn").html('<i class="fas fa-sort"></i>');
+                $(".sortBtn").html('<div data-icon="" class="icon text-2xl"></div>');
                 $(this).html(sortDirection);
                 sortBy = this.dataset.sort;
                 sortDirection = sortDirection == "asc" ? "desc" : "asc";
@@ -244,7 +237,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
                 const rightFields = [{
                     id: "publish_date",
                     label: "Publish Date",
-                    type: "date"
+                    type: "datetime-local"
                 }];
 
                 const selectFields = [{
@@ -274,17 +267,26 @@ $currentPath = $_ENV["CURRENT_PATH"];
                     </div>
                 `).join('');
 
-                let rightHTML = rightFields.map(field => `
-                    <div class="relative">
-                        <input id="edit-${field.id}" type="${field.type}" name="${field.id}" 
-                            class="peer leading-8 mb-4 block border p-2 px-4 rounded w-full placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black"
-                            placeholder="" value="${jInfo[field.id] || ''}"/>
-                        <label for="${field.id}" class="absolute left-0 ml-2 -top-2.5 bg-white px-2 text-gray-600
-                            duration-200 transform scale-100 origin-[0] 
-                            peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
-                            peer-focus:-top-2.5 peer-focus:text-black">${field.label}</label>
-                    </div>
-                `).join('');
+                let rightHTML = rightFields.map(field => {
+                    let value = jInfo[field.id] || '';
+
+                    if (field.id === "publish_date" && value.includes(" ")) {
+                        const [date, time] = value.split(" ");
+                        value = `${date}T${time.slice(0, 5)}`; // T + HH:MM
+                    }
+
+                    return `
+        <div class="relative">
+            <input id="edit-${field.id}" type="${field.type}" name="${field.id}" 
+                class="peer leading-8 mb-4 block border p-2 px-4 rounded w-full placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black"
+                placeholder="" value="${value}"/>
+            <label for="${field.id}" class="absolute left-0 ml-2 -top-2.5 bg-white px-2 text-gray-600
+                duration-200 transform scale-100 origin-[0] 
+                peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 
+                peer-focus:-top-2.5 peer-focus:text-black">${field.label}</label>
+        </div>
+    `;
+                }).join('');
 
                 let selectHTML = selectFields.map(field => `
                     <div class="relative">
@@ -327,6 +329,7 @@ $currentPath = $_ENV["CURRENT_PATH"];
                                 peer-focus:-top-2.5 peer-focus:text-black">Message</label>
                         </div>
                         <input type="hidden" name="form_time" value="<?= time(); ?>">
+                        <input type="hidden" id="crud-form" name="crud-form" value="crud-form">
                         <div class="flex justify-end">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
                             <button type="button" id="cancel-btn" class="bg-gray-400 text-white px-4 py-2 rounded ml-2">Cancel</button>

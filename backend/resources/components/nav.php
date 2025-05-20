@@ -5,7 +5,7 @@ $currentURL = $_SERVER['REQUEST_URI'];
 ">
     <div class="h-full container w-11/12 mx-auto flex items-center justify-between lg:flex-row lg:items-center">
 
-        <?php $imgPath = $_ENV['CURRENT_PATH'] . "/upload/siteMedia/Logo-MSP-FINAL-400.webp"; ?>
+        <?php $imgPath = $_ENV['CURRENT_PATH'] . "/upload/siteMedia/originalLogo.png"; ?>
         <!-- Logo -->
         <a href="<?php echo $_ENV["CURRENT_PATH"] . $_SESSION["AL"] . '/'; ?>"
             class="h-[60px] w-[103px] bg-center bg-no-repeat bg-contain md:h-[100px] lg:w-[185px] lg:h-[107px]" style="background-image:url('<?php echo $imgPath;; ?>')">
@@ -27,28 +27,43 @@ $currentURL = $_SERVER['REQUEST_URI'];
         if (array_key_exists("id", $_SESSION)) {
             $menuItems["Admin"] = $_ENV["CURRENT_PATH"] . "/admin";
         }
-
         ?>
-
-
 
         <div class="flex-col justify-end items-center">
             <div class="hidden w-full justify-between gap-24 lg:flex">
                 <div class="flex items-center gap-4">
-                    <p><i class="fa-solid fa-phone text-msp-primary mr-2"></i><span>+40 213 485 272</span></p>
+                    <div class="flex gap-1 items-center">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20px">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier" class="fill-msp-primary">
+                                <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"></path>
+                            </g>
+                        </svg>
+
+                        <span>+40 213 485 272</span>
+                    </div>
                     <div class="h-[13px] w-[1px] bg-msp-ui opacity-25">&nbsp;</div>
-                    <p><i class="fa-solid fa-map-pin text-msp-primary mr-2"></i><span>Odobești 1, București</span></p>
+                    <div class="flex gap-1 items-center">
+
+                        <svg height="20px" width="20px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" class="fill-msp-primary">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+
+                                <g>
+                                    <path d="M256.102,275.689c-13.136,0-26.131-2.015-38.62-5.994l-2.073-0.66v203.275c0,5.792,2.199,11.289,6.227,15.512 l17.453,17.216c4.276,4.488,10.047,6.96,16.246,6.96c6.202,0,11.97-2.473,16.211-6.926l17.525-17.286 c3.992-4.192,6.19-9.685,6.19-15.477V269.556l-2.052,0.625C281.193,273.838,268.709,275.689,256.102,275.689z"></path>
+                                    <path d="M255.999,0c-68.961,0-125.063,56.106-125.063,125.069c0,68.959,56.102,125.065,125.063,125.065 s125.065-56.106,125.065-125.065C381.064,56.106,324.96,0,255.999,0z M217.269,126.047c-20.052,0-36.366-16.312-36.366-36.366 c0-20.05,16.314-36.362,36.366-36.362s36.366,16.312,36.366,36.362C253.635,109.735,237.321,126.047,217.269,126.047z"></path>
+                                </g>
+                            </g>
+                        </svg>
+
+
+                        <span>Odobești 1, București</span>
+                    </div>
                 </div>
                 <div class="flex gap-4 justify-center items-center md:order-3 md:w-1/3 lg:w-auto lg:order-4">
-                    <a href="https://www.facebook.com/Medical-Simulator-Projects-1955016421259752/">
-                        <i class="fab fa-facebook text-[20px] text-msp-primary hover:text-black hover:scale-110 transition-all duration-500 ease-in-out"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/company/medical-simulator-projects?trk=public_profile_topcard_current_company">
-                        <i class="fab fa-linkedin text-[20px] text-msp-primary hover:text-black hover:scale-110 transition-all duration-500 ease-in-out"></i>
-                    </a>
-                    <a href="/">
-                        <i class="fab fa-youtube text-[20px] text-msp-primary hover:text-black hover:scale-110 transition-all duration-500 ease-in-out"></i>
-                    </a>
+                    <?php socials_icons(reversed: true); ?>
                 </div>
             </div>
             <hr class="hidden h-[3px] border-0 my-3 bg-msp-primary w-full lg:flex">
@@ -81,8 +96,16 @@ $currentURL = $_SERVER['REQUEST_URI'];
             </nav>
         </div>
         <!-- Hamburger Button -->
-        <button id="menuBtn" class="cursor-pointer p-2 rounded-md focus:outline-none md:hidden">
-            <i class="fa-solid fa-bars text-[27px] text-msp-primary font-extrabold"></i>
+        <button id="menuBtn" class="cursor-pointer p-2 rounded-md w-[50px] focus:outline-none md:hidden">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#dd4949">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M4 18L20 18" stroke="#00000" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M4 12L20 12" stroke="#00000" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M4 6L20 6" stroke="#00000" stroke-width="3" stroke-linecap="round"></path>
+                </g>
+            </svg>
         </button>
 
         <!-- Mobile Menu -->

@@ -15,9 +15,7 @@
                 <a href="<?php $_ENV["CURRENT_PATH"] . '/cookies' ?>" class="text-[13px] text-msp-new-gray">Cookie</a>
             </div>
             <div class="flex mt-2 gap-4 justify-center items-center md:order-3 md:w-1/3 lg:w-auto lg:order-4">
-                <a href="https://www.facebook.com/Medical-Simulator-Projects-1955016421259752/"><i class="fab fa-facebook text-msp-new-gray text-[20px] hover:text-msp-primary transition-all duration-500 ease-in-out"></i></a>
-                <a href="https://www.linkedin.com/company/medical-simulator-projects?trk=public_profile_topcard_current_company"><i class="fab fa-linkedin text-msp-new-gray text-[20px] hover:text-msp-primary transition-all duration-500 ease-in-out"></i></a>
-                <a href="/"><i class="fab fa-youtube text-msp-new-gray text-[20px] hover:text-msp-primary transition-all duration-500 ease-in-out"></i></a>
+                <?php socials_icons(); ?>
             </div>
         </div>
     </div>
